@@ -1,0 +1,15 @@
+Testing 2048-bit RSA
+mul_mont_gather5_count: 15
+bn_power5_count: 204
+mul_mont_gather5_count: 15
+bn_power5_count: 204
+Testing 3072-bit RSA
+mul_mont_gather5_count: 15
+bn_power5_count: 307
+mul_mont_gather5_count: 15
+bn_power5_count: 307
+Testing 4096-bit RSA
+mul_mont_gather5_count: 15
+bn_power5_count: 409
+mul_mont_gather5_count: 15
+bn_power5_count: 409

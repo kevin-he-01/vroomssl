@@ -1,0 +1,58 @@
+2025-12-30T17:41:03+00:00
+Running ./build/bssl_bench
+Run on (96 X 800 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x48)
+  L1 Instruction 32 KiB (x48)
+  L2 Unified 2048 KiB (x48)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.44, 0.11, 0.04
+name,iterations,real_time,cpu_time,time_unit,bytes_per_second,items_per_second,label,error_occurred,error_message
+"BM_ModExpConsttimeOG/1024_mean",5,236.07,236.069,us,,,,,
+"BM_ModExpConsttimeOG/1024_median",5,236.071,236.071,us,,,,,
+"BM_ModExpConsttimeOG/1024_stddev",5,0.0342052,0.0338496,us,,,,,
+"BM_ModExpConsttimeOG/1024_cv",5,0.000144894,0.000143388,,,,,,
+"BM_ModExpConsttimeOG/1536_mean",5,740.897,740.894,us,,,,,
+"BM_ModExpConsttimeOG/1536_median",5,740.883,740.879,us,,,,,
+"BM_ModExpConsttimeOG/1536_stddev",5,0.0815377,0.0857552,us,,,,,
+"BM_ModExpConsttimeOG/1536_cv",5,0.000110053,0.000115746,,,,,,
+"BM_ModExpConsttimeOG/2048_mean",5,1716.33,1716.3,us,,,,,
+"BM_ModExpConsttimeOG/2048_median",5,1716.32,1716.3,us,,,,,
+"BM_ModExpConsttimeOG/2048_stddev",5,0.159136,0.140146,us,,,,,
+"BM_ModExpConsttimeOG/2048_cv",5,9.27189e-05,8.1656e-05,,,,,,
+"BM_RNSExponentiation<1536, 4>_mean",5,263.403,263.395,us,,,,,
+"BM_RNSExponentiation<1536, 4>_median",5,263.028,263.024,us,,,,,
+"BM_RNSExponentiation<1536, 4>_stddev",5,1.03743,1.02969,us,,,,,
+"BM_RNSExponentiation<1536, 4>_cv",5,0.00393859,0.0039093,,,,,,
+"BM_RNSExponentiation<2048, 4>_mean",5,538.552,538.545,us,,,,,
+"BM_RNSExponentiation<2048, 4>_median",5,538.354,538.347,us,,,,,
+"BM_RNSExponentiation<2048, 4>_stddev",5,0.811098,0.81109,us,,,,,
+"BM_RNSExponentiation<2048, 4>_cv",5,0.00150607,0.00150608,,,,,,
+"BM_RNSDifferentRingExponentiationBatched<1024, 4>_mean",5,204.273,204.271,us,,,,,
+"BM_RNSDifferentRingExponentiationBatched<1024, 4>_median",5,204.274,204.272,us,,,,,
+"BM_RNSDifferentRingExponentiationBatched<1024, 4>_stddev",5,0.0130886,0.0128599,us,,,,,
+"BM_RNSDifferentRingExponentiationBatched<1024, 4>_cv",5,6.40738e-05,6.29552e-05,,,,,,
+"BM_SpeedRSASign/2048/threads:1_mean",5,487.468,487.462,us,,,,,
+"BM_SpeedRSASign/2048/threads:1_median",5,487.454,487.449,us,,,,,
+"BM_SpeedRSASign/2048/threads:1_stddev",5,0.0426183,0.0454046,us,,,,,
+"BM_SpeedRSASign/2048/threads:1_cv",5,8.7428e-05,9.3145e-05,,,,,,
+"BM_SpeedRSASign/3072/threads:1_mean",5,1515.93,1515.92,us,,,,,
+"BM_SpeedRSASign/3072/threads:1_median",5,1515.89,1515.88,us,,,,,
+"BM_SpeedRSASign/3072/threads:1_stddev",5,0.119972,0.113933,us,,,,,
+"BM_SpeedRSASign/3072/threads:1_cv",5,7.91407e-05,7.51575e-05,,,,,,
+"BM_SpeedRSASign/4096/threads:1_mean",5,3491.49,3491.45,us,,,,,
+"BM_SpeedRSASign/4096/threads:1_median",5,3491.55,3491.5,us,,,,,
+"BM_SpeedRSASign/4096/threads:1_stddev",5,0.13179,0.119641,us,,,,,
+"BM_SpeedRSASign/4096/threads:1_cv",5,3.77459e-05,3.42668e-05,,,,,,
+"BM_SpeedRNSRSASign/2048/threads:1_mean",5,225.857,225.851,us,,,,,
+"BM_SpeedRNSRSASign/2048/threads:1_median",5,225.888,225.879,us,,,,,
+"BM_SpeedRNSRSASign/2048/threads:1_stddev",5,0.0946588,0.0934558,us,,,,,
+"BM_SpeedRNSRSASign/2048/threads:1_cv",5,0.00041911,0.000413794,,,,,,
+"BM_SpeedRNSRSASign/3072/threads:1_mean",5,572.931,572.929,us,,,,,
+"BM_SpeedRNSRSASign/3072/threads:1_median",5,572.911,572.912,us,,,,,
+"BM_SpeedRNSRSASign/3072/threads:1_stddev",5,0.113529,0.111883,us,,,,,
+"BM_SpeedRNSRSASign/3072/threads:1_cv",5,0.000198155,0.000195282,,,,,,
+"BM_SpeedRNSRSASign/4096/threads:1_mean",5,1158.61,1158.6,us,,,,,
+"BM_SpeedRNSRSASign/4096/threads:1_median",5,1158.68,1158.66,us,,,,,
+"BM_SpeedRNSRSASign/4096/threads:1_stddev",5,1.18848,1.19282,us,,,,,
+"BM_SpeedRNSRSASign/4096/threads:1_cv",5,0.00102578,0.00102954,,,,,,

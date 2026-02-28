@@ -1,0 +1,169 @@
+[ec2-user@ip-172-31-21-213 openssl_bench]$ ./bn_modexp_mont_bench 
+OpenSSL BN Modular Exponentiation Benchmark (constant time)
+===========================================
+Benchmarking BN_mod_exp_mont_consttime and BN_mod_exp_mont_consttime_x2
+Modulus sizes: 1024, 2048, 4096 bits
+
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 314.21 ms
+Average: 314207.59 ns (314.208 us, 0.314208 ms)
+Min: 226681 ns (226.681 us)
+Max: 553583 ns (553.583 us)
+Throughput: 6365.22 ops/sec
+
+Modulus 1 bits: 1024, Modulus 2 bits: 1024
+Base 1 bits: 1019, Base 2 bits: 1023
+Exponent 1 bits: 1023, Exponent 2 bits: 1022
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 849.39 ms
+Average: 849389.69 ns (849.390 us, 0.849390 ms)
+Min: 630206 ns (630.206 us)
+Max: 2794551 ns (2794.551 us)
+Throughput: 2354.63 ops/sec
+
+Modulus 1 bits: 1536, Modulus 2 bits: 1536
+Base 1 bits: 1534, Base 2 bits: 1535
+Exponent 1 bits: 1535, Exponent 2 bits: 1533
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 1697.40 ms
+Average: 1697403.14 ns (1697.403 us, 1.697403 ms)
+Min: 1293182 ns (1293.182 us)
+Max: 2478200 ns (2478.200 us)
+Throughput: 1178.27 ops/sec
+
+Modulus 1 bits: 2048, Modulus 2 bits: 2048
+Base 1 bits: 2047, Base 2 bits: 2045
+Exponent 1 bits: 2046, Exponent 2 bits: 2048
+
+[ec2-user@ip-172-31-21-213 openssl_bench]$ ./bn_modexp_mont_bench 
+OpenSSL BN Modular Exponentiation Benchmark (constant time)
+===========================================
+Benchmarking BN_mod_exp_mont_consttime and BN_mod_exp_mont_consttime_x2
+Modulus sizes: 1024, 2048, 4096 bits
+
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 288.73 ms
+Average: 288731.39 ns (288.731 us, 0.288731 ms)
+Min: 227064 ns (227.064 us)
+Max: 2833283 ns (2833.283 us)
+Throughput: 6926.85 ops/sec
+
+Modulus 1 bits: 1024, Modulus 2 bits: 1024
+Base 1 bits: 1023, Base 2 bits: 1021
+Exponent 1 bits: 1023, Exponent 2 bits: 1022
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 850.01 ms
+Average: 850005.40 ns (850.005 us, 0.850005 ms)
+Min: 639304 ns (639.304 us)
+Max: 1277306 ns (1277.306 us)
+Throughput: 2352.93 ops/sec
+
+Modulus 1 bits: 1536, Modulus 2 bits: 1536
+Base 1 bits: 1535, Base 2 bits: 1532
+Exponent 1 bits: 1536, Exponent 2 bits: 1536
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 1731.47 ms
+Average: 1731466.61 ns (1731.467 us, 1.731467 ms)
+Min: 1291124 ns (1291.124 us)
+Max: 3068491 ns (3068.491 us)
+Throughput: 1155.09 ops/sec
+
+Modulus 1 bits: 2048, Modulus 2 bits: 2048
+Base 1 bits: 2045, Base 2 bits: 2048
+Exponent 1 bits: 2048, Exponent 2 bits: 2048
+[ec2-user@ip-172-31-21-213 openssl_bench]$ ./bn_modexp_mont_bench 
+OpenSSL BN Modular Exponentiation Benchmark (constant time)
+===========================================
+Benchmarking BN_mod_exp_mont_consttime and BN_mod_exp_mont_consttime_x2
+Modulus sizes: 1024, 2048, 4096 bits
+
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 268.25 ms
+Average: 268249.88 ns (268.250 us, 0.268250 ms)
+Min: 226886 ns (226.886 us)
+Max: 644645 ns (644.645 us)
+Throughput: 7455.73 ops/sec
+
+Modulus 1 bits: 1024, Modulus 2 bits: 1024
+Base 1 bits: 1022, Base 2 bits: 1023
+Exponent 1 bits: 1021, Exponent 2 bits: 1024
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 839.11 ms
+Average: 839108.88 ns (839.109 us, 0.839109 ms)
+Min: 630330 ns (630.330 us)
+Max: 1135374 ns (1135.374 us)
+Throughput: 2383.48 ops/sec
+
+Modulus 1 bits: 1536, Modulus 2 bits: 1536
+Base 1 bits: 1534, Base 2 bits: 1534
+Exponent 1 bits: 1536, Exponent 2 bits: 1536
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 1731.79 ms
+Average: 1731792.39 ns (1731.792 us, 1.731792 ms)
+Min: 1291785 ns (1291.785 us)
+Max: 2373885 ns (2373.885 us)
+Throughput: 1154.87 ops/sec
+
+Modulus 1 bits: 2048, Modulus 2 bits: 2048
+Base 1 bits: 2045, Base 2 bits: 2045
+Exponent 1 bits: 2048, Exponent 2 bits: 2046
+[ec2-user@ip-172-31-21-213 openssl_bench]$ ./bn_modexp_mont_bench 
+OpenSSL BN Modular Exponentiation Benchmark (constant time)
+===========================================
+Benchmarking BN_mod_exp_mont_consttime and BN_mod_exp_mont_consttime_x2
+Modulus sizes: 1024, 2048, 4096 bits
+
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 274.27 ms
+Average: 274270.89 ns (274.271 us, 0.274271 ms)
+Min: 226752 ns (226.752 us)
+Max: 404056 ns (404.056 us)
+Throughput: 7292.06 ops/sec
+
+Modulus 1 bits: 1024, Modulus 2 bits: 1024
+Base 1 bits: 1022, Base 2 bits: 1021
+Exponent 1 bits: 1024, Exponent 2 bits: 1024
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 830.29 ms
+Average: 830290.23 ns (830.290 us, 0.830290 ms)
+Min: 633233 ns (633.233 us)
+Max: 1076673 ns (1076.673 us)
+Throughput: 2408.80 ops/sec
+
+Modulus 1 bits: 1536, Modulus 2 bits: 1536
+Base 1 bits: 1533, Base 2 bits: 1534
+Exponent 1 bits: 1535, Exponent 2 bits: 1536
+
+=== Benchmark: BN_mod_exp_mont_consttime_x2 (dual) ===
+Iterations: 1000 (valid: 1000)
+Total time: 1709.96 ms
+Average: 1709963.19 ns (1709.963 us, 1.709963 ms)
+Min: 1290479 ns (1290.479 us)
+Max: 2234747 ns (2234.747 us)
+Throughput: 1169.62 ops/sec
+
+Modulus 1 bits: 2048, Modulus 2 bits: 2048
+Base 1 bits: 2048, Base 2 bits: 2047
+Exponent 1 bits: 2047, Exponent 2 bits: 2048

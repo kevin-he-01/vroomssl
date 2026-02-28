@@ -1,0 +1,24 @@
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=ModExp
+RNS Montgomery code is ENABLED.
+2025-12-24T21:20:36+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.36, 0.46, 0.29
+---------------------------------------------------------------------
+Benchmark                           Time             CPU   Iterations
+---------------------------------------------------------------------
+BM_ModExpConsttimeOG/1024      244264 ns       244252 ns         2889
+BM_ModExpConsttimeOG/1536      771565 ns       770431 ns          923
+BM_ModExpConsttimeOG/2048     1758997 ns      1758351 ns          397
+BM_ModExpConsttimeRNS/1024     137527 ns       137526 ns         5170 (1.77x better)
+BM_ModExpConsttimeRNS/1536     290816 ns       290803 ns         2404 (2.65x better)
+BM_ModExpConsttimeRNS/2048     596508 ns       596375 ns         1213 (2.94x better)
+
+My hypothesis: Combination of slow ctime_select + lack of latency-hiding is to blame for the poor performance of 1024-bit
+- thus try batching
+- try scatter gather

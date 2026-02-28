@@ -1,0 +1,24 @@
+2026-01-22T03:54:10+00:00
+Running ./build.clang21/bssl_bench
+Run on (96 X 800 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x48)
+  L1 Instruction 32 KiB (x48)
+  L2 Unified 2048 KiB (x48)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.47, 0.11, 0.04
+------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations
+------------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1             488 us          488 us         1436
+BM_SpeedRSAVerify/2048/threads:1          13.5 us         13.5 us        51826
+BM_SpeedRSASign/3072/threads:1            1515 us         1515 us          462
+BM_SpeedRSAVerify/3072/threads:1          29.3 us         29.3 us        23875
+BM_SpeedRSASign/4096/threads:1            3492 us         3492 us          200
+BM_SpeedRSAVerify/4096/threads:1          51.3 us         51.3 us        13595
+BM_SpeedRNSRSASign/2048/threads:1          211 us          211 us         3313
+BM_SpeedRNSRSAVerify/2048/threads:1       4.41 us         4.41 us       158807
+BM_SpeedRNSRSASign/3072/threads:1          581 us          581 us         1204
+BM_SpeedRNSRSAVerify/3072/threads:1       9.61 us         9.61 us        72609
+BM_SpeedRNSRSASign/4096/threads:1         1103 us         1103 us          635
+BM_SpeedRNSRSAVerify/4096/threads:1       14.9 us         14.9 us        46807

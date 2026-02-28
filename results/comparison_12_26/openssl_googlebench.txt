@@ -1,0 +1,67 @@
+[ec2-user@ip-172-31-21-213 openssl]$ ./build/modexp --benchmark_repetitions=5
+2025-12-27T05:54:01+00:00
+Running ./build/modexp
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.17, 0.25, 0.29
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_ModExpConsttimeOG/1024             280292 ns       280010 ns         2477
+BM_ModExpConsttimeOG/1024             275241 ns       274349 ns         2477
+BM_ModExpConsttimeOG/1024             276510 ns       272696 ns         2477
+BM_ModExpConsttimeOG/1024             273159 ns       273008 ns         2477
+BM_ModExpConsttimeOG/1024             276605 ns       276250 ns         2477
+BM_ModExpConsttimeOG/1024_mean        276361 ns       275263 ns            5
+BM_ModExpConsttimeOG/1024_median      276510 ns       274349 ns            5
+BM_ModExpConsttimeOG/1024_stddev        2600 ns         3001 ns            5
+BM_ModExpConsttimeOG/1024_cv            0.94 %          1.09 %             5
+BM_ModExpConsttimeOG/1536             865027 ns       864651 ns          856
+BM_ModExpConsttimeOG/1536             857602 ns       857505 ns          856
+BM_ModExpConsttimeOG/1536             864503 ns       864041 ns          856
+BM_ModExpConsttimeOG/1536             833262 ns       833162 ns          856
+BM_ModExpConsttimeOG/1536             859495 ns       859054 ns          856
+BM_ModExpConsttimeOG/1536_mean        855978 ns       855683 ns            5
+BM_ModExpConsttimeOG/1536_median      859495 ns       859054 ns            5
+BM_ModExpConsttimeOG/1536_stddev       13092 ns        12963 ns            5
+BM_ModExpConsttimeOG/1536_cv            1.53 %          1.51 %             5
+BM_ModExpConsttimeOG/2048            1970711 ns      1968890 ns          342
+BM_ModExpConsttimeOG/2048            1917685 ns      1915602 ns          342
+BM_ModExpConsttimeOG/2048            2027185 ns      2026390 ns          342
+BM_ModExpConsttimeOG/2048            1953691 ns      1953554 ns          342
+BM_ModExpConsttimeOG/2048            2398013 ns      1978273 ns          342
+BM_ModExpConsttimeOG/2048_mean       2053457 ns      1968542 ns            5
+BM_ModExpConsttimeOG/2048_median     1970711 ns      1968890 ns            5
+BM_ModExpConsttimeOG/2048_stddev      196624 ns        40213 ns            5
+BM_ModExpConsttimeOG/2048_cv            9.58 %          2.04 %             5
+BM_ModExpConsttime_x2/1024            306100 ns       306087 ns         2621
+BM_ModExpConsttime_x2/1024            309762 ns       309638 ns         2621
+BM_ModExpConsttime_x2/1024            301640 ns       301636 ns         2621
+BM_ModExpConsttime_x2/1024            302776 ns       301711 ns         2621
+BM_ModExpConsttime_x2/1024            285529 ns       285271 ns         2621
+BM_ModExpConsttime_x2/1024_mean       301161 ns       300868 ns            5
+BM_ModExpConsttime_x2/1024_median     302776 ns       301711 ns            5
+BM_ModExpConsttime_x2/1024_stddev       9295 ns         9337 ns            5
+BM_ModExpConsttime_x2/1024_cv           3.09 %          3.10 %             5
+BM_ModExpConsttime_x2/1536            826552 ns       826083 ns          942
+BM_ModExpConsttime_x2/1536            805403 ns       805284 ns          942
+BM_ModExpConsttime_x2/1536            812200 ns       810894 ns          942
+BM_ModExpConsttime_x2/1536            799945 ns       799897 ns          942
+BM_ModExpConsttime_x2/1536            832414 ns       832239 ns          942
+BM_ModExpConsttime_x2/1536_mean       815303 ns       814879 ns            5
+BM_ModExpConsttime_x2/1536_median     812200 ns       810894 ns            5
+BM_ModExpConsttime_x2/1536_stddev      13809 ns        13778 ns            5
+BM_ModExpConsttime_x2/1536_cv           1.69 %          1.69 %             5
+BM_ModExpConsttime_x2/2048           1643646 ns      1643199 ns          382
+BM_ModExpConsttime_x2/2048           1683224 ns      1683098 ns          382
+BM_ModExpConsttime_x2/2048           1595100 ns      1594609 ns          382
+BM_ModExpConsttime_x2/2048           1775208 ns      1772585 ns          382
+BM_ModExpConsttime_x2/2048           1756743 ns      1754220 ns          382
+BM_ModExpConsttime_x2/2048_mean      1690784 ns      1689542 ns            5
+BM_ModExpConsttime_x2/2048_median    1683224 ns      1683098 ns            5
+BM_ModExpConsttime_x2/2048_stddev      75684 ns        74634 ns            5
+BM_ModExpConsttime_x2/2048_cv           4.48 %          4.42 %             5

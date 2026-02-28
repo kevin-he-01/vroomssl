@@ -1,0 +1,118 @@
+Commit: a230d270fe944d8b341103cbc40f616ff6eb0ad4
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter='BM_SpeedRSASign|BM_SpeedRNSRSASign|BM_SpeedRSAVerify|BM_SpeedRNSRSAVerify'
+RNS Montgomery code is ENABLED.
+2026-01-21T04:24:30+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.25, 0.35, 0.21
+------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations
+------------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1          566410 ns       565416 ns         1233
+BM_SpeedRSAVerify/2048/threads:1         15410 ns        15362 ns        46286
+BM_SpeedRSASign/3072/threads:1         1729851 ns      1728677 ns          408
+BM_SpeedRSAVerify/3072/threads:1         32890 ns        32878 ns        21057
+BM_SpeedRSASign/4096/threads:1         4044203 ns      4035876 ns          178
+BM_SpeedRSAVerify/4096/threads:1         58554 ns        58487 ns        11920
+BM_SpeedRNSRSASign/2048/threads:1       314100 ns       314069 ns         2397
+BM_SpeedRNSRSAVerify/2048/threads:1       5913 ns         5912 ns       115633
+BM_SpeedRNSRSASign/3072/threads:1       789572 ns       789377 ns          897
+BM_SpeedRNSRSAVerify/3072/threads:1      13023 ns        13010 ns        44211
+BM_SpeedRNSRSASign/4096/threads:1      1564692 ns      1564651 ns          462
+BM_SpeedRNSRSAVerify/4096/threads:1      39378 ns        39378 ns        16763
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter='BM_SpeedRSASign|BM_SpeedRNSRSASign|BM_SpeedRSAVerify|BM_SpeedRNSRSAVerify'
+RNS Montgomery code is ENABLED.
+2026-01-21T04:25:41+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.25, 0.36, 0.23
+------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations
+------------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1          564217 ns       563246 ns         1257
+BM_SpeedRSAVerify/2048/threads:1         15888 ns        15885 ns        43633
+BM_SpeedRSASign/3072/threads:1         1759517 ns      1754229 ns          391
+BM_SpeedRSAVerify/3072/threads:1         33691 ns        33538 ns        20932
+BM_SpeedRSASign/4096/threads:1         4008214 ns      4001530 ns          176
+BM_SpeedRSAVerify/4096/threads:1         58570 ns        58531 ns        12200
+BM_SpeedRNSRSASign/2048/threads:1       286648 ns       286622 ns         2320
+BM_SpeedRNSRSAVerify/2048/threads:1       6281 ns         6266 ns       118403
+BM_SpeedRNSRSASign/3072/threads:1       800619 ns       800233 ns          852
+BM_SpeedRNSRSAVerify/3072/threads:1      13899 ns        13893 ns        51502
+BM_SpeedRNSRSASign/4096/threads:1      1528472 ns      1528334 ns          465
+BM_SpeedRNSRSAVerify/4096/threads:1      40069 ns        40069 ns        17623
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter='BM_SpeedRSASign|BM_SpeedRNSRSASign|BM_SpeedRSAVerify|BM_SpeedRNSRSAVerify'
+RNS Montgomery code is ENABLED.
+2026-01-21T04:26:09+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.43, 0.39, 0.24
+------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations
+------------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1          546966 ns       545707 ns         1295
+BM_SpeedRSAVerify/2048/threads:1         15442 ns        15424 ns        46230
+BM_SpeedRSASign/3072/threads:1         1712143 ns      1712116 ns          404
+BM_SpeedRSAVerify/3072/threads:1         33863 ns        33596 ns        21578
+BM_SpeedRSASign/4096/threads:1         3907347 ns      3906736 ns          178
+BM_SpeedRSAVerify/4096/threads:1         58620 ns        58568 ns        11999
+BM_SpeedRNSRSASign/2048/threads:1       290821 ns       290773 ns         2379
+BM_SpeedRNSRSAVerify/2048/threads:1       6046 ns         6046 ns       113927
+BM_SpeedRNSRSASign/3072/threads:1       819623 ns       819602 ns          852
+BM_SpeedRNSRSAVerify/3072/threads:1      13451 ns        13450 ns        53076
+BM_SpeedRNSRSASign/4096/threads:1      1464741 ns      1464723 ns          474
+BM_SpeedRNSRSAVerify/4096/threads:1      38862 ns        38854 ns        18193
+[ec2-user@ip-172-31-21-213 boringssl]$ ../openssl/build/bench --benchmark_filter='BM_RSASign_EVP_PKEY_sign|BM_RSAVerify_EVP_PKEY_verify'
+2026-01-21T04:30:36+00:00
+Running ../openssl/build/bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.04, 0.20, 0.20
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_RSASign_EVP_PKEY_sign/2048         345832 ns       345358 ns         2075
+BM_RSASign_EVP_PKEY_sign/3072         876405 ns       876337 ns          766
+BM_RSASign_EVP_PKEY_sign/4096        1846135 ns      1846086 ns          378
+BM_RSAVerify_EVP_PKEY_verify/2048      17388 ns        17359 ns        40617
+BM_RSAVerify_EVP_PKEY_verify/3072      37369 ns        37140 ns        19259
+BM_RSAVerify_EVP_PKEY_verify/4096      63699 ns        63697 ns        10936
+[ec2-user@ip-172-31-21-213 boringssl]$ ../openssl/build/bench --benchmark_filter='BM_RSASign_EVP_PKEY_sign|BM_RSAVerify_EVP_PKEY_verify'
+2026-01-21T04:30:57+00:00
+Running ../openssl/build/bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.16, 0.22, 0.20
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_RSASign_EVP_PKEY_sign/2048         339563 ns       339339 ns         2077
+BM_RSASign_EVP_PKEY_sign/3072         884404 ns       884286 ns          794
+BM_RSASign_EVP_PKEY_sign/4096        1827865 ns      1827809 ns          375
+BM_RSAVerify_EVP_PKEY_verify/2048      17277 ns        17274 ns        40362
+BM_RSAVerify_EVP_PKEY_verify/3072      36730 ns        36729 ns        18652
+BM_RSAVerify_EVP_PKEY_verify/4096      63364 ns        63361 ns        10585

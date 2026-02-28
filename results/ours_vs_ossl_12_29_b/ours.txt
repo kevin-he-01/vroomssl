@@ -1,0 +1,56 @@
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter='BM_SpeedRNSRSASign|BM_RNSDifferentRingExponentiationBatched<1024, 4>|BM_RNSExponentiation<1536, 4>|BM_RNSExponentiation<2048, 4>' --benchmark_repetitions=3
+RNS Montgomery code is ENABLED.
+2025-12-30T05:39:58+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.64, 0.36, 0.28
+---------------------------------------------------------------------------------------------------
+Benchmark                                                         Time             CPU   Iterations
+---------------------------------------------------------------------------------------------------
+BM_RNSDifferentRingExponentiationBatched<1024, 4>            281466 ns       281208 ns         2540
+BM_RNSDifferentRingExponentiationBatched<1024, 4>            289270 ns       287877 ns         2540
+BM_RNSDifferentRingExponentiationBatched<1024, 4>            290247 ns       290012 ns         2540
+BM_RNSDifferentRingExponentiationBatched<1024, 4>_mean       286994 ns       286365 ns            3 (vs BM_ModExpConsttime_x2/1024)
+BM_RNSDifferentRingExponentiationBatched<1024, 4>_median     289270 ns       287877 ns            3
+BM_RNSDifferentRingExponentiationBatched<1024, 4>_stddev       4813 ns         4593 ns            3
+BM_RNSDifferentRingExponentiationBatched<1024, 4>_cv           1.68 %          1.60 %             3
+BM_RNSExponentiation<1536, 4>                                358819 ns       358808 ns         1751
+BM_RNSExponentiation<1536, 4>                                367082 ns       366977 ns         1751
+BM_RNSExponentiation<1536, 4>                                377121 ns       376882 ns         1751
+BM_RNSExponentiation<1536, 4>_mean                           367674 ns       367555 ns            3 (*2 = 735348 ns, vs BM_ModExpConsttime_x2/1536)
+BM_RNSExponentiation<1536, 4>_median                         367082 ns       366977 ns            3
+BM_RNSExponentiation<1536, 4>_stddev                           9165 ns         9051 ns            3
+BM_RNSExponentiation<1536, 4>_cv                               2.49 %          2.46 %             3
+BM_RNSExponentiation<2048, 4>                                772380 ns       771366 ns          947
+BM_RNSExponentiation<2048, 4>                                749341 ns       749228 ns          947
+BM_RNSExponentiation<2048, 4>                                761411 ns       760900 ns          947
+BM_RNSExponentiation<2048, 4>_mean                           761044 ns       760498 ns            3 (*2 = 1522088 ns, vs BM_ModExpConsttime_x2/2048)
+BM_RNSExponentiation<2048, 4>_median                         761411 ns       760900 ns            3
+BM_RNSExponentiation<2048, 4>_stddev                          11524 ns        11075 ns            3
+BM_RNSExponentiation<2048, 4>_cv                               1.51 %          1.46 %             3
+BM_SpeedRNSRSASign/2048/threads:1                            311336 ns       311132 ns         2175
+BM_SpeedRNSRSASign/2048/threads:1                            303736 ns       303729 ns         2175
+BM_SpeedRNSRSASign/2048/threads:1                            320923 ns       320860 ns         2175
+BM_SpeedRNSRSASign/2048/threads:1_mean                       311998 ns       311907 ns            3 (vs BM_RSASign_EVP_PKEY_sign/2048)
+BM_SpeedRNSRSASign/2048/threads:1_median                     311336 ns       311132 ns            3
+BM_SpeedRNSRSASign/2048/threads:1_stddev                       8613 ns         8591 ns            3
+BM_SpeedRNSRSASign/2048/threads:1_cv                           2.76 %          2.75 %             3
+BM_SpeedRNSRSASign/3072/threads:1                            794856 ns       791744 ns          898
+BM_SpeedRNSRSASign/3072/threads:1                            766057 ns       765620 ns          898
+BM_SpeedRNSRSASign/3072/threads:1                            780433 ns       780024 ns          898
+BM_SpeedRNSRSASign/3072/threads:1_mean                       780449 ns       779129 ns            3 (vs BM_RSASign_EVP_PKEY_sign/3072)
+BM_SpeedRNSRSASign/3072/threads:1_median                     780433 ns       780024 ns            3
+BM_SpeedRNSRSASign/3072/threads:1_stddev                      14399 ns        13085 ns            3
+BM_SpeedRNSRSASign/3072/threads:1_cv                           1.84 %          1.68 %             3
+BM_SpeedRNSRSASign/4096/threads:1                           1569777 ns      1566314 ns          451
+BM_SpeedRNSRSASign/4096/threads:1                           1559346 ns      1559258 ns          451
+BM_SpeedRNSRSASign/4096/threads:1                           1610232 ns      1608570 ns          451
+BM_SpeedRNSRSASign/4096/threads:1_mean                      1579785 ns      1578047 ns            3 (vs BM_RSASign_EVP_PKEY_sign/4096)
+BM_SpeedRNSRSASign/4096/threads:1_median                    1569777 ns      1566314 ns            3
+BM_SpeedRNSRSASign/4096/threads:1_stddev                      26879 ns        26668 ns            3
+BM_SpeedRNSRSASign/4096/threads:1_cv                           1.70 %          1.69 %             3

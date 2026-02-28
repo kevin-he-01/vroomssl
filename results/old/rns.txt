@@ -1,0 +1,111 @@
+### Using the OpenSSL wrapper
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=BM_RNS
+RNS Montgomery code is ENABLED.
+2025-12-24T19:43:37+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.20, 0.07, 0.10
+-----------------------------------------------------------------------------
+Benchmark                                   Time             CPU   Iterations
+-----------------------------------------------------------------------------
+BM_RNSRingConstructor<1024>          11361360 ns     11348613 ns           61
+BM_RNSRingConstructor<1536>          27246544 ns     27246033 ns           25
+BM_RNSRingConstructor<2048>          71453876 ns     71442235 ns           10
+BM_RNSInt2Mont<1024>                     6737 ns         6734 ns       106407
+BM_RNSInt2Mont<1536>                    11825 ns        11821 ns        53306
+BM_RNSInt2Mont<2048>                    17649 ns        17647 ns        38909
+BM_RNSMont2Int<1024>                     4363 ns         4360 ns       160931
+BM_RNSMont2Int<1536>                     6596 ns         6596 ns       106843
+BM_RNSMont2Int<2048>                     8642 ns         8642 ns        80838
+BM_RNSRingMultiplication<1024>           98.1 ns         98.1 ns      7292263
+BM_RNSRingMultiplication<1536>            144 ns          144 ns      5136394
+BM_RNSRingMultiplication<2048>            226 ns          226 ns      3312952
+BM_RNSHeapRingMultiplication<1024>       97.9 ns         97.9 ns      7263892
+BM_RNSHeapRingMultiplication<1536>        138 ns          138 ns      5015033
+BM_RNSHeapRingMultiplication<2048>        212 ns          212 ns      3332892
+BM_RNSExponentiation<1024, 1>          219655 ns       219641 ns         3166
+BM_RNSExponentiation<1024, 2>          157845 ns       157836 ns         4450
+BM_RNSExponentiation<1024, 3>          143148 ns       143137 ns         5017
+BM_RNSExponentiation<1024, 4>          136637 ns       136629 ns         5074
+BM_RNSExponentiation<1024, 5>          137946 ns       137931 ns         5057
+BM_RNSExponentiation<1024, 6>          143699 ns       143648 ns         4871
+BM_RNSExponentiation<1024, 7>          179176 ns       179169 ns         3888
+BM_RNSExponentiation<1024, 8>          227666 ns       227528 ns         3123
+BM_RNSExponentiation<1536, 1>          445737 ns       445723 ns         1593
+BM_RNSExponentiation<1536, 2>          335791 ns       335788 ns         2054
+BM_RNSExponentiation<1536, 3>          293323 ns       293307 ns         2357
+BM_RNSExponentiation<1536, 4>          285982 ns       285978 ns         2297
+BM_RNSExponentiation<1536, 5>          288375 ns       288323 ns         2234
+BM_RNSExponentiation<1536, 6>          315942 ns       315940 ns         2305
+BM_RNSExponentiation<1536, 7>          369142 ns       369026 ns         1954
+BM_RNSExponentiation<1536, 8>          433784 ns       433771 ns         1481
+BM_RNSExponentiation<2048, 1>          883893 ns       883822 ns          781
+BM_RNSExponentiation<2048, 2>          680182 ns       680120 ns         1080
+BM_RNSExponentiation<2048, 3>          604148 ns       604071 ns         1201
+BM_RNSExponentiation<2048, 4>          585964 ns       585830 ns         1265
+BM_RNSExponentiation<2048, 5>          597030 ns       597000 ns         1082
+BM_RNSExponentiation<2048, 6>          627283 ns       627261 ns         1075
+BM_RNSExponentiation<2048, 7>          710341 ns       710315 ns         1030
+BM_RNSExponentiation<2048, 8>          823752 ns       823724 ns          875
+
+### Using the GMP wrapper
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=BM_RNS
+RNS Montgomery code is ENABLED.
+2025-12-24T19:51:42+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.53, 0.28, 0.20
+-----------------------------------------------------------------------------
+Benchmark                                   Time             CPU   Iterations
+-----------------------------------------------------------------------------
+BM_RNSRingConstructor<1024>            385752 ns       385707 ns         1828
+BM_RNSRingConstructor<1536>            896976 ns       896977 ns          777
+BM_RNSRingConstructor<2048>           1681135 ns      1681085 ns          409
+BM_RNSInt2Mont<1024>                     1132 ns         1131 ns       627985
+BM_RNSInt2Mont<1536>                     1626 ns         1626 ns       431549
+BM_RNSInt2Mont<2048>                     2443 ns         2443 ns       294612
+BM_RNSMont2Int<1024>                     2567 ns         2567 ns       265394
+BM_RNSMont2Int<1536>                     4000 ns         4000 ns       176448
+BM_RNSMont2Int<2048>                     5343 ns         5342 ns       132353
+BM_RNSRingMultiplication<1024>           98.6 ns         98.6 ns      7379582
+BM_RNSRingMultiplication<1536>            143 ns          143 ns      5270980
+BM_RNSRingMultiplication<2048>            211 ns          211 ns      3268806
+BM_RNSHeapRingMultiplication<1024>       97.4 ns         97.4 ns      7247137
+BM_RNSHeapRingMultiplication<1536>        148 ns          148 ns      5162316
+BM_RNSHeapRingMultiplication<2048>        220 ns          220 ns      3094786
+BM_RNSExponentiation<1024, 1>          238641 ns       238638 ns         2918
+BM_RNSExponentiation<1024, 2>          157898 ns       157894 ns         4336
+BM_RNSExponentiation<1024, 3>          142047 ns       142011 ns         5005
+BM_RNSExponentiation<1024, 4>          139216 ns       139112 ns         4715
+BM_RNSExponentiation<1024, 5>          137480 ns       137431 ns         5073
+BM_RNSExponentiation<1024, 6>          148981 ns       148657 ns         4702
+BM_RNSExponentiation<1024, 7>          183423 ns       183384 ns         3807
+BM_RNSExponentiation<1024, 8>          229199 ns       229125 ns         2961
+BM_RNSExponentiation<1536, 1>          483925 ns       483730 ns         1431
+BM_RNSExponentiation<1536, 2>          360251 ns       360220 ns         2036
+BM_RNSExponentiation<1536, 3>          310282 ns       310274 ns         2255
+BM_RNSExponentiation<1536, 4>          291127 ns       291094 ns         2180
+BM_RNSExponentiation<1536, 5>          311144 ns       311021 ns         2439
+BM_RNSExponentiation<1536, 6>          316689 ns       316670 ns         2197
+BM_RNSExponentiation<1536, 7>          371753 ns       371083 ns         1954
+BM_RNSExponentiation<1536, 8>          439961 ns       439887 ns         1507
+BM_RNSExponentiation<2048, 1>          912219 ns       912191 ns          718
+BM_RNSExponentiation<2048, 2>          683115 ns       683056 ns         1021
+BM_RNSExponentiation<2048, 3>          604347 ns       604337 ns         1127
+BM_RNSExponentiation<2048, 4>          591300 ns       591297 ns         1197
+BM_RNSExponentiation<2048, 5>          608849 ns       608838 ns         1146
+BM_RNSExponentiation<2048, 6>          642947 ns       642928 ns         1137
+BM_RNSExponentiation<2048, 7>          695351 ns       695078 ns         1023
+BM_RNSExponentiation<2048, 8>          844961 ns       844955 ns          865

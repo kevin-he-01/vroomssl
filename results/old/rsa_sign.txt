@@ -1,0 +1,45 @@
+## Using the OpenSSL wrapper
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=RSASign
+RNS Montgomery code is ENABLED.
+2025-12-24T19:47:41+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.39, 0.27, 0.19
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1        506958 ns       505823 ns         1386
+BM_SpeedRSASign/3072/threads:1       1587406 ns      1585932 ns          450
+BM_SpeedRSASign/4096/threads:1       3623512 ns      3612431 ns          194
+BM_SpeedRNSRSASign/2048/threads:1     326011 ns       325990 ns         2057
+BM_SpeedRNSRSASign/3072/threads:1     770284 ns       764317 ns          692
+BM_SpeedRNSRSASign/4096/threads:1    1677427 ns      1677369 ns          364
+
+## Using the GMP wrapper
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=RSASign
+RNS Montgomery code is ENABLED.
+2025-12-24T19:53:29+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.50, 0.39, 0.25
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1        506766 ns       504751 ns         1384
+BM_SpeedRSASign/3072/threads:1       1559349 ns      1557546 ns          448
+BM_SpeedRSASign/4096/threads:1       3634205 ns      3632378 ns          194
+BM_SpeedRNSRSASign/2048/threads:1     299899 ns       299550 ns         2348
+BM_SpeedRNSRSASign/3072/threads:1     620080 ns       619669 ns         1121
+BM_SpeedRNSRSASign/4096/threads:1    1187622 ns      1186562 ns          544

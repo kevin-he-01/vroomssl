@@ -1,0 +1,138 @@
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=RSASign --benchmark_repetitions=5
+RNS Montgomery code is ENABLED.
+2025-12-27T05:17:16+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.19, 0.15, 0.06
+-----------------------------------------------------------------------------------
+Benchmark                                         Time             CPU   Iterations
+-----------------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1               563492 ns       561901 ns         1199
+BM_SpeedRSASign/2048/threads:1               563865 ns       563713 ns         1199
+BM_SpeedRSASign/2048/threads:1               545630 ns       545155 ns         1199
+BM_SpeedRSASign/2048/threads:1               559425 ns       559244 ns         1199
+BM_SpeedRSASign/2048/threads:1               563177 ns       563134 ns         1199
+BM_SpeedRSASign/2048/threads:1_mean          559118 ns       558629 ns            5
+BM_SpeedRSASign/2048/threads:1_median        563177 ns       561901 ns            5
+BM_SpeedRSASign/2048/threads:1_stddev          7749 ns         7726 ns            5
+BM_SpeedRSASign/2048/threads:1_cv              1.39 %          1.38 %             5
+BM_SpeedRSASign/3072/threads:1              1742282 ns      1739695 ns          408
+BM_SpeedRSASign/3072/threads:1              1686884 ns      1686255 ns          408
+BM_SpeedRSASign/3072/threads:1              1749291 ns      1749208 ns          408
+BM_SpeedRSASign/3072/threads:1              1769542 ns      1768829 ns          408
+BM_SpeedRSASign/3072/threads:1              1701595 ns      1700918 ns          408
+BM_SpeedRSASign/3072/threads:1_mean         1729919 ns      1728981 ns            5
+BM_SpeedRSASign/3072/threads:1_median       1742282 ns      1739695 ns            5
+BM_SpeedRSASign/3072/threads:1_stddev         34469 ns        34369 ns            5
+BM_SpeedRSASign/3072/threads:1_cv              1.99 %          1.99 %             5
+BM_SpeedRSASign/4096/threads:1              3984317 ns      3983988 ns          171
+BM_SpeedRSASign/4096/threads:1              3856797 ns      3856669 ns          171
+BM_SpeedRSASign/4096/threads:1              4077306 ns      4077155 ns          171
+BM_SpeedRSASign/4096/threads:1              4006712 ns      4002051 ns          171
+BM_SpeedRSASign/4096/threads:1              3894021 ns      3892452 ns          171
+BM_SpeedRSASign/4096/threads:1_mean         3963830 ns      3962463 ns            5
+BM_SpeedRSASign/4096/threads:1_median       3984317 ns      3983988 ns            5
+BM_SpeedRSASign/4096/threads:1_stddev         88692 ns        88429 ns            5
+BM_SpeedRSASign/4096/threads:1_cv              2.24 %          2.23 %             5
+BM_SpeedRNSRSASign/2048/threads:1            350842 ns       350643 ns         1857
+BM_SpeedRNSRSASign/2048/threads:1            358656 ns       358490 ns         1857
+BM_SpeedRNSRSASign/2048/threads:1            355725 ns       355415 ns         1857
+BM_SpeedRNSRSASign/2048/threads:1            348100 ns       347989 ns         1857
+BM_SpeedRNSRSASign/2048/threads:1            364921 ns       364696 ns         1857
+BM_SpeedRNSRSASign/2048/threads:1_mean       355649 ns       355447 ns            5
+BM_SpeedRNSRSASign/2048/threads:1_median     355725 ns       355415 ns            5
+BM_SpeedRNSRSASign/2048/threads:1_stddev       6617 ns         6586 ns            5
+BM_SpeedRNSRSASign/2048/threads:1_cv           1.86 %          1.85 %             5
+BM_SpeedRNSRSASign/3072/threads:1            794043 ns       793196 ns          971
+BM_SpeedRNSRSASign/3072/threads:1            756992 ns       756754 ns          971
+BM_SpeedRNSRSASign/3072/threads:1            735023 ns       734867 ns          971
+BM_SpeedRNSRSASign/3072/threads:1            764006 ns       763525 ns          971
+BM_SpeedRNSRSASign/3072/threads:1            801549 ns       801473 ns          971
+BM_SpeedRNSRSASign/3072/threads:1_mean       770323 ns       769963 ns            5
+BM_SpeedRNSRSASign/3072/threads:1_median     764006 ns       763525 ns            5
+BM_SpeedRNSRSASign/3072/threads:1_stddev      27393 ns        27296 ns            5
+BM_SpeedRNSRSASign/3072/threads:1_cv           3.56 %          3.55 %             5
+BM_SpeedRNSRSASign/4096/threads:1           1539393 ns      1539349 ns          496
+BM_SpeedRNSRSASign/4096/threads:1           1509633 ns      1506921 ns          496
+BM_SpeedRNSRSASign/4096/threads:1           1518185 ns      1511306 ns          496
+BM_SpeedRNSRSASign/4096/threads:1           1577978 ns      1577172 ns          496
+BM_SpeedRNSRSASign/4096/threads:1           1610648 ns      1610168 ns          496
+BM_SpeedRNSRSASign/4096/threads:1_mean      1551167 ns      1548983 ns            5
+BM_SpeedRNSRSASign/4096/threads:1_median    1539393 ns      1539349 ns            5
+BM_SpeedRNSRSASign/4096/threads:1_stddev      42451 ns        44215 ns            5
+BM_SpeedRNSRSASign/4096/threads:1_cv           2.74 %          2.85 %             5
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=ModExp --benchmark_repetition
+s=5
+RNS Montgomery code is ENABLED.
+2025-12-27T05:18:26+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.18, 0.17, 0.07
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_ModExpConsttimeOG/1024             271630 ns       271619 ns         2548
+BM_ModExpConsttimeOG/1024             261178 ns       261132 ns         2548
+BM_ModExpConsttimeOG/1024             269404 ns       269245 ns         2548
+BM_ModExpConsttimeOG/1024             278866 ns       278823 ns         2548
+BM_ModExpConsttimeOG/1024             267033 ns       266557 ns         2548
+BM_ModExpConsttimeOG/1024_mean        269622 ns       269475 ns            5
+BM_ModExpConsttimeOG/1024_median      269404 ns       269245 ns            5
+BM_ModExpConsttimeOG/1024_stddev        6472 ns         6522 ns            5
+BM_ModExpConsttimeOG/1024_cv            2.40 %          2.42 %             5
+BM_ModExpConsttimeOG/1536             869520 ns       868451 ns          882
+BM_ModExpConsttimeOG/1536             839713 ns       839526 ns          882
+BM_ModExpConsttimeOG/1536             837398 ns       837244 ns          882
+BM_ModExpConsttimeOG/1536             829006 ns       828658 ns          882
+BM_ModExpConsttimeOG/1536             825824 ns       825713 ns          882
+BM_ModExpConsttimeOG/1536_mean        840292 ns       839918 ns            5
+BM_ModExpConsttimeOG/1536_median      837398 ns       837244 ns            5
+BM_ModExpConsttimeOG/1536_stddev       17318 ns        16956 ns            5
+BM_ModExpConsttimeOG/1536_cv            2.06 %          2.02 %             5
+BM_ModExpConsttimeOG/2048            1984401 ns      1982516 ns          388
+BM_ModExpConsttimeOG/2048            1997098 ns      1996421 ns          388
+BM_ModExpConsttimeOG/2048            1942373 ns      1941494 ns          388
+BM_ModExpConsttimeOG/2048            1914656 ns      1914039 ns          388
+BM_ModExpConsttimeOG/2048            1970234 ns      1969722 ns          388
+BM_ModExpConsttimeOG/2048_mean       1961752 ns      1960838 ns            5
+BM_ModExpConsttimeOG/2048_median     1970234 ns      1969722 ns            5
+BM_ModExpConsttimeOG/2048_stddev       33271 ns        33088 ns            5
+BM_ModExpConsttimeOG/2048_cv            1.70 %          1.69 %             5
+BM_ModExpConsttimeRNS/1024            173851 ns       173666 ns         4645
+BM_ModExpConsttimeRNS/1024            165465 ns       165412 ns         4645
+BM_ModExpConsttimeRNS/1024            165160 ns       165149 ns         4645
+BM_ModExpConsttimeRNS/1024            161842 ns       161374 ns         4645
+BM_ModExpConsttimeRNS/1024            170351 ns       170347 ns         4645
+BM_ModExpConsttimeRNS/1024_mean       167334 ns       167190 ns            5 (6%-24% worse than OpenSSL BN_mod_exp_mont_consttime_x2)
+BM_ModExpConsttimeRNS/1024_median     165465 ns       165412 ns            5
+BM_ModExpConsttimeRNS/1024_stddev       4742 ns         4823 ns            5
+BM_ModExpConsttimeRNS/1024_cv           2.83 %          2.88 %             5
+BM_ModExpConsttimeRNS/1536            327741 ns       327499 ns         1787
+BM_ModExpConsttimeRNS/1536            357065 ns       357055 ns         1787
+BM_ModExpConsttimeRNS/1536            380785 ns       380533 ns         1787
+BM_ModExpConsttimeRNS/1536            342595 ns       342596 ns         1787
+BM_ModExpConsttimeRNS/1536            359824 ns       359812 ns         1787
+BM_ModExpConsttimeRNS/1536_mean       353602 ns       353499 ns            5 (15%-17% better than OpenSSL BN_mod_exp_mont_consttime_x2)
+BM_ModExpConsttimeRNS/1536_median     357065 ns       357055 ns            5
+BM_ModExpConsttimeRNS/1536_stddev      19872 ns        19864 ns            5
+BM_ModExpConsttimeRNS/1536_cv           5.62 %          5.62 %             5
+BM_ModExpConsttimeRNS/2048            770306 ns       769345 ns          858
+BM_ModExpConsttimeRNS/2048            776985 ns       776914 ns          858
+BM_ModExpConsttimeRNS/2048            771809 ns       771772 ns          858
+BM_ModExpConsttimeRNS/2048            755817 ns       755742 ns          858
+BM_ModExpConsttimeRNS/2048            718558 ns       718507 ns          858
+BM_ModExpConsttimeRNS/2048_mean       758695 ns       758456 ns            5 (11%-12% better than OpenSSL)
+BM_ModExpConsttimeRNS/2048_median     770306 ns       769345 ns            5
+BM_ModExpConsttimeRNS/2048_stddev      23773 ns        23664 ns            5
+BM_ModExpConsttimeRNS/2048_cv           3.13 %          3.12 %             5
+

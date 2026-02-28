@@ -1,0 +1,96 @@
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=RNSExponentiation --benchmark_repetitions=5
+RNS Montgomery code is ENABLED.
+2025-12-28T19:09:20+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.02, 0.21, 0.21
+--------------------------------------------------------------------------------------
+Benchmark                                            Time             CPU   Iterations
+--------------------------------------------------------------------------------------
+BM_DRNSExponentiation<1024, 4>                  172194 ns       172187 ns         4209
+BM_DRNSExponentiation<1024, 4>                  174873 ns       174868 ns         4209
+BM_DRNSExponentiation<1024, 4>                  174566 ns       174556 ns         4209
+BM_DRNSExponentiation<1024, 4>                  167405 ns       167315 ns         4209
+BM_DRNSExponentiation<1024, 4>                  172980 ns       172973 ns         4209
+BM_DRNSExponentiation<1024, 4>_mean             172403 ns       172380 ns            5 (7.2% worse)
+BM_DRNSExponentiation<1024, 4>_median           172980 ns       172973 ns            5
+BM_DRNSExponentiation<1024, 4>_stddev             3006 ns         3040 ns            5
+BM_DRNSExponentiation<1024, 4>_cv                 1.74 %          1.76 %             5
+BM_DRNSExponentiation<1536, 4>                  351033 ns       351020 ns         1935
+BM_DRNSExponentiation<1536, 4>                  369768 ns       369764 ns         1935
+BM_DRNSExponentiation<1536, 4>                  376620 ns       376622 ns         1935
+BM_DRNSExponentiation<1536, 4>                  359702 ns       359697 ns         1935
+BM_DRNSExponentiation<1536, 4>                  375918 ns       375909 ns         1935
+BM_DRNSExponentiation<1536, 4>_mean             366608 ns       366603 ns            5 (9% worse)
+BM_DRNSExponentiation<1536, 4>_median           369768 ns       369764 ns            5
+BM_DRNSExponentiation<1536, 4>_stddev            11036 ns        11039 ns            5
+BM_DRNSExponentiation<1536, 4>_cv                 3.01 %          3.01 %             5
+BM_DRNSExponentiation<2048, 4>                  775518 ns       775502 ns          842
+BM_DRNSExponentiation<2048, 4>                  801574 ns       801471 ns          842
+BM_DRNSExponentiation<2048, 4>                  795636 ns       795604 ns          842
+BM_DRNSExponentiation<2048, 4>                  820464 ns       820444 ns          842
+BM_DRNSExponentiation<2048, 4>                  825086 ns       825055 ns          842
+BM_DRNSExponentiation<2048, 4>_mean             803656 ns       803615 ns            5
+BM_DRNSExponentiation<2048, 4>_median           801574 ns       801471 ns            5
+BM_DRNSExponentiation<2048, 4>_stddev            20014 ns        20013 ns            5
+BM_DRNSExponentiation<2048, 4>_cv                 2.49 %          2.49 %             5
+BM_RNSExponentiation<1024, 4>                   164170 ns       164167 ns         4468
+BM_RNSExponentiation<1024, 4>                   163837 ns       163829 ns         4468
+BM_RNSExponentiation<1024, 4>                   157644 ns       157643 ns         4468
+BM_RNSExponentiation<1024, 4>                   157381 ns       157346 ns         4468
+BM_RNSExponentiation<1024, 4>                   160414 ns       160391 ns         4468
+BM_RNSExponentiation<1024, 4>_mean              160689 ns       160675 ns            5
+BM_RNSExponentiation<1024, 4>_median            160414 ns       160391 ns            5
+BM_RNSExponentiation<1024, 4>_stddev              3252 ns         3260 ns            5
+BM_RNSExponentiation<1024, 4>_cv                  2.02 %          2.03 %             5
+BM_RNSExponentiation<1536, 4>                   342343 ns       342279 ns         2049
+BM_RNSExponentiation<1536, 4>                   319706 ns       319696 ns         2049
+BM_RNSExponentiation<1536, 4>                   341417 ns       341403 ns         2049
+BM_RNSExponentiation<1536, 4>                   351223 ns       351218 ns         2049
+BM_RNSExponentiation<1536, 4>                   328028 ns       328013 ns         2049
+BM_RNSExponentiation<1536, 4>_mean              336543 ns       336522 ns            5
+BM_RNSExponentiation<1536, 4>_median            341417 ns       341403 ns            5
+BM_RNSExponentiation<1536, 4>_stddev             12539 ns        12535 ns            5
+BM_RNSExponentiation<1536, 4>_cv                  3.73 %          3.72 %             5
+BM_RNSExponentiation<2048, 4>                   659544 ns       659538 ns          991
+BM_RNSExponentiation<2048, 4>                   674602 ns       674569 ns          991
+BM_RNSExponentiation<2048, 4>                   687331 ns       687213 ns          991
+BM_RNSExponentiation<2048, 4>                   679607 ns       679218 ns          991
+BM_RNSExponentiation<2048, 4>                   729520 ns       729504 ns          991
+BM_RNSExponentiation<2048, 4>_mean              686121 ns       686008 ns            5
+BM_RNSExponentiation<2048, 4>_median            679607 ns       679218 ns            5
+BM_RNSExponentiation<2048, 4>_stddev             26298 ns        26320 ns            5
+BM_RNSExponentiation<2048, 4>_cv                  3.83 %          3.84 %             5
+BM_RNSExponentiationBatched<1024, 4>            267921 ns       267741 ns         2669
+BM_RNSExponentiationBatched<1024, 4>            251391 ns       251284 ns         2669
+BM_RNSExponentiationBatched<1024, 4>            247231 ns       247223 ns         2669
+BM_RNSExponentiationBatched<1024, 4>            257068 ns       256970 ns         2669
+BM_RNSExponentiationBatched<1024, 4>            262470 ns       262467 ns         2669
+BM_RNSExponentiationBatched<1024, 4>_mean       257217 ns       257137 ns            5
+BM_RNSExponentiationBatched<1024, 4>_median     257068 ns       256970 ns            5
+BM_RNSExponentiationBatched<1024, 4>_stddev       8304 ns         8268 ns            5
+BM_RNSExponentiationBatched<1024, 4>_cv           3.23 %          3.22 %             5
+BM_RNSExponentiationBatched<1536, 4>            607717 ns       607703 ns         1029
+BM_RNSExponentiationBatched<1536, 4>            637678 ns       637647 ns         1029
+BM_RNSExponentiationBatched<1536, 4>            667393 ns       667366 ns         1029
+BM_RNSExponentiationBatched<1536, 4>            634901 ns       634858 ns         1029
+BM_RNSExponentiationBatched<1536, 4>            628892 ns       628864 ns         1029
+BM_RNSExponentiationBatched<1536, 4>_mean       635316 ns       635287 ns            5
+BM_RNSExponentiationBatched<1536, 4>_median     634901 ns       634858 ns            5
+BM_RNSExponentiationBatched<1536, 4>_stddev      21434 ns        21430 ns            5
+BM_RNSExponentiationBatched<1536, 4>_cv           3.37 %          3.37 %             5
+BM_RNSExponentiationBatched<2048, 4>           1706704 ns      1706684 ns          460
+BM_RNSExponentiationBatched<2048, 4>           1689859 ns      1689847 ns          460
+BM_RNSExponentiationBatched<2048, 4>           1774184 ns      1774142 ns          460
+BM_RNSExponentiationBatched<2048, 4>           1713516 ns      1713465 ns          460
+BM_RNSExponentiationBatched<2048, 4>           1754270 ns      1754227 ns          460
+BM_RNSExponentiationBatched<2048, 4>_mean      1727707 ns      1727673 ns            5
+BM_RNSExponentiationBatched<2048, 4>_median    1713516 ns      1713465 ns            5
+BM_RNSExponentiationBatched<2048, 4>_stddev      35145 ns        35134 ns            5
+BM_RNSExponentiationBatched<2048, 4>_cv           2.03 %          2.03 %             5
+

@@ -1,0 +1,18 @@
+Testing 2048-bit RSA
+mul_mont_gather5_count: 15
+bn_power5_count: 204
+mul_mont_gather5_count: 15
+bn_power5_count: 204
+Testing 3072-bit RSA
+mul_mont_gather5_count: 15
+bn_power5_count: 307
+mul_mont_gather5_count: 15
+bn_power5_count: 307
+Testing 4096-bit RSA
+mul_mont_gather5_count: 15
+bn_power5_count: 409
+mul_mont_gather5_count: 15
+bn_power5_count: 409
+Files sign2048.bin and sign2048.bin-rns.bin are identical
+Files sign3072.bin and sign3072.bin-rns.bin are identical
+Files sign4096.bin and sign4096.bin-rns.bin are identical

@@ -1,0 +1,371 @@
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang15 --benchmark_filter=select
+RNS Montgomery code is ENABLED.
+2026-01-19T16:23:58+00:00
+Running /home/ec2-user/bssl_bench.clang15
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.05, 1.02, 1.06
+------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations
+------------------------------------------------------------------------------------
+BM_FixedWindowTable_ctime_select<1024, 1>       1.76 ns         1.76 ns    403479992
+BM_FixedWindowTable_ctime_select<1024, 2>       1.75 ns         1.75 ns    395103322
+BM_FixedWindowTable_ctime_select<1024, 3>       1.76 ns         1.76 ns    400748929
+BM_FixedWindowTable_ctime_select<1024, 4>       27.5 ns         27.5 ns     25628634
+BM_FixedWindowTable_ctime_select<1024, 5>       51.1 ns         51.0 ns     13245419
+BM_FixedWindowTable_ctime_select<1024, 6>        107 ns          107 ns      6480276
+BM_FixedWindowTable_ctime_select<1024, 7>        244 ns          244 ns      2889310
+BM_FixedWindowTable_ctime_select<1024, 8>        726 ns          725 ns       952034
+BM_FixedWindowTable_ctime_select<1536, 1>       2.40 ns         2.40 ns    300486503
+BM_FixedWindowTable_ctime_select<1536, 2>       2.39 ns         2.39 ns    306081587
+BM_FixedWindowTable_ctime_select<1536, 3>       2.44 ns         2.44 ns    301341162
+BM_FixedWindowTable_ctime_select<1536, 4>       34.8 ns         34.8 ns     20567974
+BM_FixedWindowTable_ctime_select<1536, 5>       68.7 ns         68.7 ns     10687580
+BM_FixedWindowTable_ctime_select<1536, 6>        128 ns          128 ns      5330385
+BM_FixedWindowTable_ctime_select<1536, 7>        422 ns          422 ns      1597906
+BM_FixedWindowTable_ctime_select<1536, 8>        862 ns          862 ns       860565
+BM_FixedWindowTable_ctime_select<2048, 1>       2.96 ns         2.96 ns    242622882
+BM_FixedWindowTable_ctime_select<2048, 2>       2.94 ns         2.94 ns    241350227
+BM_FixedWindowTable_ctime_select<2048, 3>       3.02 ns         3.02 ns    233566624
+BM_FixedWindowTable_ctime_select<2048, 4>       46.6 ns         46.6 ns     16288628
+BM_FixedWindowTable_ctime_select<2048, 5>       82.2 ns         82.2 ns      8366411
+BM_FixedWindowTable_ctime_select<2048, 6>        157 ns          157 ns      4593498
+BM_FixedWindowTable_ctime_select<2048, 7>        558 ns          558 ns      1214196
+BM_FixedWindowTable_ctime_select<2048, 8>       1113 ns         1113 ns       578985
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang21 --benchmark_filter=select
+RNS Montgomery code is ENABLED.
+2026-01-19T16:24:54+00:00
+Running /home/ec2-user/bssl_bench.clang21
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.50, 0.98, 1.05
+------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations
+------------------------------------------------------------------------------------
+BM_FixedWindowTable_ctime_select<1024, 1>       1.80 ns         1.79 ns    394447582
+BM_FixedWindowTable_ctime_select<1024, 2>       1.79 ns         1.79 ns    402941955
+BM_FixedWindowTable_ctime_select<1024, 3>       1.94 ns         1.94 ns    365626089
+BM_FixedWindowTable_ctime_select<1024, 4>       1.79 ns         1.79 ns    402542967
+BM_FixedWindowTable_ctime_select<1024, 5>       49.2 ns         49.2 ns     13326638
+BM_FixedWindowTable_ctime_select<1024, 6>        103 ns          103 ns      6378964
+BM_FixedWindowTable_ctime_select<1024, 7>        246 ns          246 ns      3113410
+BM_FixedWindowTable_ctime_select<1024, 8>        721 ns          720 ns      1037334
+BM_FixedWindowTable_ctime_select<1536, 1>       2.44 ns         2.44 ns    289922063
+BM_FixedWindowTable_ctime_select<1536, 2>       2.31 ns         2.31 ns    300703462
+BM_FixedWindowTable_ctime_select<1536, 3>       2.30 ns         2.30 ns    293697566
+BM_FixedWindowTable_ctime_select<1536, 4>       32.5 ns         32.5 ns     20637368
+BM_FixedWindowTable_ctime_select<1536, 5>       63.8 ns         63.8 ns     11912748
+BM_FixedWindowTable_ctime_select<1536, 6>        123 ns          123 ns      5730388
+BM_FixedWindowTable_ctime_select<1536, 7>        467 ns          467 ns      1498726
+BM_FixedWindowTable_ctime_select<1536, 8>        905 ns          905 ns       766379
+BM_FixedWindowTable_ctime_select<2048, 1>       2.96 ns         2.96 ns    234641400
+BM_FixedWindowTable_ctime_select<2048, 2>       2.93 ns         2.93 ns    235851580
+BM_FixedWindowTable_ctime_select<2048, 3>       2.92 ns         2.92 ns    237958614
+BM_FixedWindowTable_ctime_select<2048, 4>       42.3 ns         42.3 ns     17064363
+BM_FixedWindowTable_ctime_select<2048, 5>       80.6 ns         80.6 ns      9090779
+BM_FixedWindowTable_ctime_select<2048, 6>        153 ns          153 ns      4493107
+BM_FixedWindowTable_ctime_select<2048, 7>        553 ns          553 ns      1224123
+BM_FixedWindowTable_ctime_select<2048, 8>       1125 ns         1124 ns       645419
+
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang15 --benchmark_filter='select<1024, 4>' --benchmark_repetitions=10
+RNS Montgomery code is ENABLED.
+2026-01-19T16:26:18+00:00
+Running /home/ec2-user/bssl_bench.clang15
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.47, 0.89, 1.01
+-------------------------------------------------------------------------------------------
+Benchmark                                                 Time             CPU   Iterations
+-------------------------------------------------------------------------------------------
+BM_FixedWindowTable_ctime_select<1024, 4>              26.6 ns         26.6 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              26.0 ns         26.0 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              27.5 ns         27.5 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              26.1 ns         26.1 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              26.1 ns         26.1 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              26.7 ns         26.7 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              26.0 ns         26.0 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              24.7 ns         24.7 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              25.7 ns         25.7 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>              26.7 ns         26.7 ns     23860636
+BM_FixedWindowTable_ctime_select<1024, 4>_mean         26.2 ns         26.2 ns           10
+BM_FixedWindowTable_ctime_select<1024, 4>_median       26.1 ns         26.1 ns           10
+BM_FixedWindowTable_ctime_select<1024, 4>_stddev      0.743 ns        0.742 ns           10
+BM_FixedWindowTable_ctime_select<1024, 4>_cv           2.83 %          2.83 %            10
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang21 --benchmark_filter='select<1024, 4>' --benc
+hmark_repetitions=10
+RNS Montgomery code is ENABLED.
+2026-01-19T16:26:29+00:00
+Running /home/ec2-user/bssl_bench.clang21
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.58, 0.90, 1.00
+-------------------------------------------------------------------------------------------
+Benchmark                                                 Time             CPU   Iterations
+-------------------------------------------------------------------------------------------
+BM_FixedWindowTable_ctime_select<1024, 4>              1.74 ns         1.74 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.73 ns         1.73 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.77 ns         1.77 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.74 ns         1.74 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.78 ns         1.78 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.75 ns         1.75 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.75 ns         1.75 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.77 ns         1.77 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.76 ns         1.76 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>              1.75 ns         1.75 ns    391180164
+BM_FixedWindowTable_ctime_select<1024, 4>_mean         1.76 ns         1.75 ns           10
+BM_FixedWindowTable_ctime_select<1024, 4>_median       1.75 ns         1.75 ns           10
+BM_FixedWindowTable_ctime_select<1024, 4>_stddev      0.015 ns        0.015 ns           10
+BM_FixedWindowTable_ctime_select<1024, 4>_cv           0.84 %          0.86 %            10
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang15 --benchmark_filter=RingMultiplication
+RNS Montgomery code is ENABLED.
+2026-01-19T16:27:46+00:00
+Running /home/ec2-user/bssl_bench.clang15
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.31, 0.74, 0.94
+-----------------------------------------------------------------------------------------
+Benchmark                                               Time             CPU   Iterations
+-----------------------------------------------------------------------------------------
+BM_DRNSRingMultiplication<1024>                       139 ns          139 ns      4796460
+BM_DRNSRingMultiplication<1536>                       191 ns          191 ns      3330132
+BM_DRNSRingMultiplication<2048>                       279 ns          279 ns      2571739
+BM_RNSRingMultiplication<1024>                        131 ns          131 ns      5586522
+BM_RNSRingMultiplication<1536>                        181 ns          181 ns      4198143
+BM_RNSRingMultiplication<2048>                        265 ns          265 ns      2696028
+BM_RNSRingMultiplication<3072>                        597 ns          596 ns      1144779
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang21 --benchmark_filter='BM_RNSRingMultiplication'
+RNS Montgomery code is ENABLED.
+2026-01-19T16:32:24+00:00
+Running /home/ec2-user/bssl_bench.clang21
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.71, 0.67, 0.86
+--------------------------------------------------------------------------------
+Benchmark                                      Time             CPU   Iterations
+--------------------------------------------------------------------------------
+BM_RNSRingMultiplication<1024>               114 ns          114 ns      5972965
+BM_RNSRingMultiplication<1536>               161 ns          160 ns      3904148
+BM_RNSRingMultiplication<2048>               266 ns          266 ns      2625286
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang15 --benchmark_filter='BM_RNSExponentiation'
+RNS Montgomery code is ENABLED.
+2026-01-19T16:29:20+00:00
+Running /home/ec2-user/bssl_bench.clang15
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.36, 0.65, 0.89
+-------------------------------------------------------------------------------
+Benchmark                                     Time             CPU   Iterations
+-------------------------------------------------------------------------------
+BM_RNSExponentiation<1024, 1>            253826 ns       253780 ns         2775
+BM_RNSExponentiation<1024, 2>            181443 ns       181378 ns         4190
+BM_RNSExponentiation<1024, 3>            157218 ns       157167 ns         4475
+BM_RNSExponentiation<1024, 4>            155163 ns       155079 ns         4669
+BM_RNSExponentiation<1024, 5>            159048 ns       159015 ns         4349
+BM_RNSExponentiation<1024, 6>            167618 ns       167615 ns         4172
+BM_RNSExponentiation<1024, 7>            201826 ns       201820 ns         3297
+BM_RNSExponentiation<1024, 8>            255366 ns       255354 ns         2851
+BM_RNSExponentiation<1536, 1>            502274 ns       502259 ns         1454
+BM_RNSExponentiation<1536, 2>            370357 ns       370329 ns         1791
+BM_RNSExponentiation<1536, 3>            369791 ns       369784 ns         2245
+BM_RNSExponentiation<1536, 4>            368795 ns       368783 ns         2133
+BM_RNSExponentiation<1536, 5>            346427 ns       346414 ns         2130
+BM_RNSExponentiation<1536, 6>            338698 ns       338685 ns         2057
+BM_RNSExponentiation<1536, 7>            416751 ns       416734 ns         1767
+BM_RNSExponentiation<1536, 8>            490591 ns       490535 ns         1357
+BM_RNSExponentiation<2048, 1>           1061590 ns      1060947 ns          654
+BM_RNSExponentiation<2048, 2>            820336 ns       820305 ns          900
+BM_RNSExponentiation<2048, 3>            758022 ns       757934 ns          956
+BM_RNSExponentiation<2048, 4>            682929 ns       682778 ns          930
+BM_RNSExponentiation<2048, 5>            719025 ns       719009 ns         1031
+BM_RNSExponentiation<2048, 6>            722270 ns       722207 ns         1107
+BM_RNSExponentiation<2048, 7>            770296 ns       770235 ns          905
+BM_RNSExponentiation<2048, 8>            883446 ns       883400 ns          759
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang21 --benchmark_filter='RNSExponentiation'
+RNS Montgomery code is ENABLED.
+2026-01-19T16:30:47+00:00
+Running /home/ec2-user/bssl_bench.clang21
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.31, 0.59, 0.85
+-------------------------------------------------------------------------------
+Benchmark                                     Time             CPU   Iterations
+-------------------------------------------------------------------------------
+BM_DRNSExponentiation<1024, 4>           174543 ns       174285 ns         3686
+BM_DRNSExponentiation<1536, 4>           394564 ns       394447 ns         1894
+BM_DRNSExponentiation<2048, 4>           773458 ns       773426 ns          890
+BM_RNSExponentiation<1024, 1>            263003 ns       262874 ns         2752
+BM_RNSExponentiation<1024, 2>            198159 ns       198148 ns         3800
+BM_RNSExponentiation<1024, 3>            168337 ns       168249 ns         4283
+BM_RNSExponentiation<1024, 4>            160390 ns       160384 ns         4317
+BM_RNSExponentiation<1024, 5>            155972 ns       155968 ns         4702
+BM_RNSExponentiation<1024, 6>            163850 ns       163845 ns         4414
+BM_RNSExponentiation<1024, 7>            200955 ns       200897 ns         3433
+BM_RNSExponentiation<1024, 8>            257272 ns       256986 ns         2901
+BM_RNSExponentiation<1536, 1>            552763 ns       552512 ns         1416
+BM_RNSExponentiation<1536, 2>            371622 ns       371578 ns         1902
+BM_RNSExponentiation<1536, 3>            335024 ns       334991 ns         1814
+BM_RNSExponentiation<1536, 4>            334546 ns       334478 ns         2169
+BM_RNSExponentiation<1536, 5>            347268 ns       347074 ns         2004
+BM_RNSExponentiation<1536, 6>            370042 ns       369990 ns         2029
+BM_RNSExponentiation<1536, 7>            428127 ns       428113 ns         1760
+BM_RNSExponentiation<1536, 8>            509152 ns       509138 ns         1298
+BM_RNSExponentiation<2048, 1>           1135578 ns      1134583 ns          628
+BM_RNSExponentiation<2048, 2>            848546 ns       848471 ns          803
+BM_RNSExponentiation<2048, 3>            738930 ns       738813 ns         1036
+BM_RNSExponentiation<2048, 4>            693073 ns       692897 ns          978
+BM_RNSExponentiation<2048, 5>            709442 ns       709430 ns         1120
+BM_RNSExponentiation<2048, 6>            725607 ns       725589 ns          889
+BM_RNSExponentiation<2048, 7>            845021 ns       844857 ns          822
+BM_RNSExponentiation<2048, 8>            941721 ns       941678 ns          704
+
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang21 --benchmark_filter='BM_RNSRingMultiplication' --benchmark_repetitions=10
+RNS Montgomery code is ENABLED.
+2026-01-19T16:33:16+00:00
+Running /home/ec2-user/bssl_bench.clang21
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.54, 0.65, 0.84
+---------------------------------------------------------------------------------------
+Benchmark                                             Time             CPU   Iterations
+---------------------------------------------------------------------------------------
+BM_RNSRingMultiplication<1024>                      125 ns          125 ns      5706223
+BM_RNSRingMultiplication<1024>                      116 ns          116 ns      5706223
+BM_RNSRingMultiplication<1024>                      119 ns          119 ns      5706223
+BM_RNSRingMultiplication<1024>                      116 ns          116 ns      5706223
+BM_RNSRingMultiplication<1024>                      118 ns          118 ns      5706223
+BM_RNSRingMultiplication<1024>                      118 ns          116 ns      5706223
+BM_RNSRingMultiplication<1024>                      120 ns          120 ns      5706223
+BM_RNSRingMultiplication<1024>                      119 ns          119 ns      5706223
+BM_RNSRingMultiplication<1024>                      117 ns          117 ns      5706223
+BM_RNSRingMultiplication<1024>                      118 ns          118 ns      5706223
+BM_RNSRingMultiplication<1024>_mean                 119 ns          118 ns           10
+BM_RNSRingMultiplication<1024>_median               118 ns          118 ns           10
+BM_RNSRingMultiplication<1024>_stddev              2.53 ns         2.61 ns           10
+BM_RNSRingMultiplication<1024>_cv                  2.14 %          2.20 %            10
+BM_RNSRingMultiplication<1536>                      177 ns          177 ns      4625906
+BM_RNSRingMultiplication<1536>                      176 ns          176 ns      4625906
+BM_RNSRingMultiplication<1536>                      171 ns          171 ns      4625906
+BM_RNSRingMultiplication<1536>                      162 ns          162 ns      4625906
+BM_RNSRingMultiplication<1536>                      163 ns          163 ns      4625906
+BM_RNSRingMultiplication<1536>                      180 ns          180 ns      4625906
+BM_RNSRingMultiplication<1536>                      169 ns          169 ns      4625906
+BM_RNSRingMultiplication<1536>                      177 ns          177 ns      4625906
+BM_RNSRingMultiplication<1536>                      178 ns          178 ns      4625906
+BM_RNSRingMultiplication<1536>                      193 ns          193 ns      4625906
+BM_RNSRingMultiplication<1536>_mean                 175 ns          174 ns           10
+BM_RNSRingMultiplication<1536>_median               176 ns          176 ns           10
+BM_RNSRingMultiplication<1536>_stddev              8.86 ns         8.86 ns           10
+BM_RNSRingMultiplication<1536>_cv                  5.07 %          5.08 %            10
+BM_RNSRingMultiplication<2048>                      262 ns          262 ns      2788273
+BM_RNSRingMultiplication<2048>                      264 ns          264 ns      2788273
+BM_RNSRingMultiplication<2048>                      259 ns          259 ns      2788273
+BM_RNSRingMultiplication<2048>                      265 ns          265 ns      2788273
+BM_RNSRingMultiplication<2048>                      273 ns          273 ns      2788273
+BM_RNSRingMultiplication<2048>                      252 ns          252 ns      2788273
+BM_RNSRingMultiplication<2048>                      267 ns          267 ns      2788273
+BM_RNSRingMultiplication<2048>                      260 ns          260 ns      2788273
+BM_RNSRingMultiplication<2048>                      260 ns          260 ns      2788273
+BM_RNSRingMultiplication<2048>                      258 ns          258 ns      2788273
+BM_RNSRingMultiplication<2048>_mean                 262 ns          262 ns           10
+BM_RNSRingMultiplication<2048>_median               261 ns          261 ns           10
+BM_RNSRingMultiplication<2048>_stddev              5.71 ns         5.72 ns           10
+BM_RNSRingMultiplication<2048>_cv                  2.18 %          2.18 %            10
+^C
+[ec2-user@ip-172-31-21-213 boringssl]$ ~/bssl_bench.clang15 --benchmark_filter='BM_RNSRingMultiplication' --benchmark_repetitions=10
+RNS Montgomery code is ENABLED.
+2026-01-19T16:33:49+00:00
+Running /home/ec2-user/bssl_bench.clang15
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.73, 0.68, 0.84
+---------------------------------------------------------------------------------------
+Benchmark                                             Time             CPU   Iterations
+---------------------------------------------------------------------------------------
+BM_RNSRingMultiplication<1024>                      128 ns          127 ns      5697558
+BM_RNSRingMultiplication<1024>                      119 ns          119 ns      5697558
+BM_RNSRingMultiplication<1024>                      122 ns          122 ns      5697558
+BM_RNSRingMultiplication<1024>                      129 ns          129 ns      5697558
+BM_RNSRingMultiplication<1024>                      129 ns          129 ns      5697558
+BM_RNSRingMultiplication<1024>                      128 ns          127 ns      5697558
+BM_RNSRingMultiplication<1024>                      125 ns          125 ns      5697558
+BM_RNSRingMultiplication<1024>                      127 ns          127 ns      5697558
+BM_RNSRingMultiplication<1024>                      128 ns          128 ns      5697558
+BM_RNSRingMultiplication<1024>                      130 ns          130 ns      5697558
+BM_RNSRingMultiplication<1024>_mean                 126 ns          126 ns           10
+BM_RNSRingMultiplication<1024>_median               128 ns          127 ns           10
+BM_RNSRingMultiplication<1024>_stddev              3.42 ns         3.39 ns           10
+BM_RNSRingMultiplication<1024>_cv                  2.71 %          2.68 %            10
+BM_RNSRingMultiplication<1536>                      192 ns          191 ns      3602686
+BM_RNSRingMultiplication<1536>                      194 ns          194 ns      3602686
+BM_RNSRingMultiplication<1536>                      184 ns          184 ns      3602686
+BM_RNSRingMultiplication<1536>                      186 ns          186 ns      3602686
+BM_RNSRingMultiplication<1536>                      193 ns          193 ns      3602686
+BM_RNSRingMultiplication<1536>                      193 ns          193 ns      3602686
+BM_RNSRingMultiplication<1536>                      186 ns          186 ns      3602686
+BM_RNSRingMultiplication<1536>                      191 ns          191 ns      3602686
+BM_RNSRingMultiplication<1536>                      192 ns          192 ns      3602686
+BM_RNSRingMultiplication<1536>                      199 ns          199 ns      3602686
+BM_RNSRingMultiplication<1536>_mean                 191 ns          191 ns           10
+BM_RNSRingMultiplication<1536>_median               192 ns          192 ns           10
+BM_RNSRingMultiplication<1536>_stddev              4.63 ns         4.63 ns           10
+BM_RNSRingMultiplication<1536>_cv                  2.42 %          2.42 %            10
+BM_RNSRingMultiplication<2048>                      270 ns          270 ns      2495762
+BM_RNSRingMultiplication<2048>                      274 ns          274 ns      2495762
+BM_RNSRingMultiplication<2048>                      287 ns          287 ns      2495762
+BM_RNSRingMultiplication<2048>                      283 ns          283 ns      2495762
+BM_RNSRingMultiplication<2048>                      269 ns          269 ns      2495762
+BM_RNSRingMultiplication<2048>                      275 ns          275 ns      2495762
+BM_RNSRingMultiplication<2048>                      259 ns          259 ns      2495762
+BM_RNSRingMultiplication<2048>                      267 ns          267 ns      2495762
+BM_RNSRingMultiplication<2048>                      278 ns          278 ns      2495762
+BM_RNSRingMultiplication<2048>                      249 ns          249 ns      2495762
+BM_RNSRingMultiplication<2048>_mean                 271 ns          271 ns           10
+BM_RNSRingMultiplication<2048>_median               272 ns          272 ns           10
+BM_RNSRingMultiplication<2048>_stddev              11.2 ns         11.2 ns           10
+BM_RNSRingMultiplication<2048>_cv                  4.14 %          4.15 %            10

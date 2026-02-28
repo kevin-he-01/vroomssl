@@ -1,0 +1,22 @@
+## GMP only
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=RSASign
+RNS Montgomery code is ENABLED.
+2025-12-24T21:20:04+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.51, 0.49, 0.29
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1        501710 ns       501373 ns         1395
+BM_SpeedRSASign/3072/threads:1       1557827 ns      1557806 ns          448
+BM_SpeedRSASign/4096/threads:1       3607922 ns      3607892 ns          195
+BM_SpeedRNSRSASign/2048/threads:1     299508 ns       299486 ns         2349 (1.67x)
+BM_SpeedRNSRSASign/3072/threads:1     622235 ns       621932 ns         1081 (2.50x)
+BM_SpeedRNSRSASign/4096/threads:1    1276305 ns      1274810 ns          530 (2.82x)

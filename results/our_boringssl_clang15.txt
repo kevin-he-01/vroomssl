@@ -1,0 +1,24 @@
+2026-01-22T03:54:28+00:00
+Running ./build/bssl_bench
+Run on (96 X 800 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x48)
+  L1 Instruction 32 KiB (x48)
+  L2 Unified 2048 KiB (x48)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.62, 0.17, 0.06
+------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations
+------------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1             488 us          488 us         1434
+BM_SpeedRSAVerify/2048/threads:1          13.5 us         13.5 us        51943
+BM_SpeedRSASign/3072/threads:1            1522 us         1522 us          462
+BM_SpeedRSAVerify/3072/threads:1          29.3 us         29.3 us        23877
+BM_SpeedRSASign/4096/threads:1            3492 us         3492 us          200
+BM_SpeedRSAVerify/4096/threads:1          51.4 us         51.4 us        13592
+BM_SpeedRNSRSASign/2048/threads:1          214 us          214 us         3280
+BM_SpeedRNSRSAVerify/2048/threads:1       4.44 us         4.44 us       157263
+BM_SpeedRNSRSASign/3072/threads:1          584 us          584 us         1199
+BM_SpeedRNSRSAVerify/3072/threads:1       9.57 us         9.57 us        73203
+BM_SpeedRNSRSASign/4096/threads:1         1107 us         1107 us          632
+BM_SpeedRNSRSAVerify/4096/threads:1       15.0 us         15.0 us        46529

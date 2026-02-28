@@ -1,0 +1,34 @@
+2025-12-30T17:41:54+00:00
+Running ../openssl/build/bench
+Run on (96 X 800 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x48)
+  L1 Instruction 32 KiB (x48)
+  L2 Unified 2048 KiB (x48)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.76, 0.25, 0.09
+name,iterations,real_time,cpu_time,time_unit,bytes_per_second,items_per_second,label,error_occurred,error_message
+"BM_ModExpConsttime_x2/1024_mean",5,227.089,227.089,us,,,,,
+"BM_ModExpConsttime_x2/1024_median",5,227.064,227.065,us,,,,,
+"BM_ModExpConsttime_x2/1024_stddev",5,0.0360323,0.0357197,us,,,,,
+"BM_ModExpConsttime_x2/1024_cv",5,0.00015867,0.000157294,,,,,,
+"BM_ModExpConsttime_x2/1536_mean",5,630.863,630.861,us,,,,,
+"BM_ModExpConsttime_x2/1536_median",5,630.603,630.595,us,,,,,
+"BM_ModExpConsttime_x2/1536_stddev",5,0.575688,0.578209,us,,,,,
+"BM_ModExpConsttime_x2/1536_cv",5,0.00091254,0.00091654,,,,,,
+"BM_ModExpConsttime_x2/2048_mean",5,1291.75,1291.74,us,,,,,
+"BM_ModExpConsttime_x2/2048_median",5,1291.62,1291.62,us,,,,,
+"BM_ModExpConsttime_x2/2048_stddev",5,0.209752,0.19882,us,,,,,
+"BM_ModExpConsttime_x2/2048_cv",5,0.000162378,0.000153916,,,,,,
+"BM_RSASign_EVP_PKEY_sign/2048_mean",5,255.776,255.774,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/2048_median",5,255.746,255.738,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/2048_stddev",5,0.154407,0.155311,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/2048_cv",5,0.000603682,0.000607219,,,,,,
+"BM_RSASign_EVP_PKEY_sign/3072_mean",5,691.152,691.147,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/3072_median",5,691.128,691.117,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/3072_stddev",5,0.0794779,0.0834783,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/3072_cv",5,0.000114993,0.000120782,,,,,,
+"BM_RSASign_EVP_PKEY_sign/4096_mean",5,1395.56,1395.55,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/4096_median",5,1395.33,1395.32,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/4096_stddev",5,0.731446,0.73428,us,,,,,
+"BM_RSASign_EVP_PKEY_sign/4096_cv",5,0.000524125,0.000526158,,,,,,

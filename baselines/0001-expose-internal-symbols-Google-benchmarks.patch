@@ -1,0 +1,1271 @@
+From 248a764735b61e4fe11e6a2af7ee1bdad2e71420 Mon Sep 17 00:00:00 2001
+From: Kaiwen He <32375681+kevin-he-01@users.noreply.github.com>
+Date: Mon, 16 Feb 2026 13:13:56 -0500
+Subject: [PATCH] expose internal symbols + Google benchmarks
+
+---
+ .gitignore            |   8 +
+ bench/CMakeLists.txt  |  51 ++++++
+ bench/TODO            |   1 +
+ bench/amm.cc          | 117 ++++++++++++
+ bench/modexp.cc       | 367 +++++++++++++++++++++++++++++++++++++
+ bench/rsa.cc          | 407 ++++++++++++++++++++++++++++++++++++++++++
+ bench/test.cc         |  36 ++++
+ build.sh.old          |  17 ++
+ build_openssl.sh      |  18 ++
+ crypto/rsa/rsa_ossl.c |   4 +-
+ include/openssl/bn.h  |  79 ++++++++
+ openssl/.gitignore    |   7 +
+ util/libcrypto.num    |  19 ++
+ 13 files changed, 1129 insertions(+), 2 deletions(-)
+ create mode 100644 bench/CMakeLists.txt
+ create mode 100644 bench/TODO
+ create mode 100644 bench/amm.cc
+ create mode 100644 bench/modexp.cc
+ create mode 100644 bench/rsa.cc
+ create mode 100644 bench/test.cc
+ create mode 100644 build.sh.old
+ create mode 100755 build_openssl.sh
+ create mode 100644 openssl/.gitignore
+
+diff --git a/.gitignore b/.gitignore
+index 7983f5bbc7..f0a66218b5 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -212,6 +212,7 @@ providers/implementations/rands/test_rng.inc
+ /test/evp_pkey_ctx_new_from_name
+ /test/threadstest_fips
+ /test/timing_load_creds
++/test/test_base64_simdutf
+ 
+ # Demo applications
+ /demos/bio/client-arg
+@@ -421,3 +422,10 @@ doc-nits
+ # LSP (Language Server Protocol) support
+ .cache/
+ compile_commands.json
++
++# CMake build directory
++build/
++.vscode/
++
++# .clangd, which contains system-dependent paths
++.clangd
+diff --git a/bench/CMakeLists.txt b/bench/CMakeLists.txt
+new file mode 100644
+index 0000000000..ab9b7ce206
+--- /dev/null
++++ b/bench/CMakeLists.txt
+@@ -0,0 +1,51 @@
++cmake_minimum_required(VERSION 3.10)
++project(openssl_bench)
++
++set(CMAKE_CXX_STANDARD 17)
++set(CMAKE_CXX_STANDARD_REQUIRED ON)
++set(CMAKE_EXE_LINKER_FLAGS "-no-pie")
++
++# Must use custom OpenSSL path at ../openssl
++# Build it by running ./build_openssl.sh in the repository root
++set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../openssl")
++message(STATUS "Using custom OpenSSL path at: ${OPENSSL_ROOT_DIR} (be sure to run ./build_openssl.sh in the repository root)")
++
++find_package(OpenSSL REQUIRED)
++find_package(benchmark REQUIRED)
++
++# Add combined benchmark executable
++add_executable(bench modexp.cc rsa.cc amm.cc)
++
++add_executable(test test.cc)
++
++# Link libraries
++target_link_libraries(test
++    PRIVATE
++    OpenSSL::SSL
++    OpenSSL::Crypto
++    benchmark::benchmark
++    benchmark::benchmark_main
++)
++
++target_link_libraries(bench
++    PRIVATE
++    OpenSSL::SSL
++    OpenSSL::Crypto
++    benchmark::benchmark
++    benchmark::benchmark_main
++)
++
++# Include directories
++target_include_directories(bench
++    PRIVATE
++    ${OPENSSL_INCLUDE_DIR}
++)
++
++# Compiler flags
++target_compile_options(bench
++    PRIVATE
++    -Wall
++    -Wextra
++    -O3
++    -g
++)
+diff --git a/bench/TODO b/bench/TODO
+new file mode 100644
+index 0000000000..cb511ffb4f
+--- /dev/null
++++ b/bench/TODO
+@@ -0,0 +1 @@
++1. Write my own RSA benchmark. bench/rsa.cc in BoringSSL doesn't work because it uses BoringSSL's internal functions with no OpenSSL equivalence (afaik)
+diff --git a/bench/amm.cc b/bench/amm.cc
+new file mode 100644
+index 0000000000..75ebbe8ba1
+--- /dev/null
++++ b/bench/amm.cc
+@@ -0,0 +1,117 @@
++#include <openssl/bn.h>
++#include <benchmark/benchmark.h>
++#include <cstring>
++
++static void BM_AMM52x20_x1_ifma256(benchmark::State &state) {
++    constexpr size_t N = 20;
++    BN_ULONG res[N];
++    BN_ULONG a[N];
++    BN_ULONG b[N];
++    BN_ULONG m[N];
++    // Dummy data
++    BN_ULONG k0 = 0x42;
++    memset(m, 1, N * sizeof(BN_ULONG));
++    memset(a, 2, N * sizeof(BN_ULONG));
++    memset(b, 3, N * sizeof(BN_ULONG));
++    for (auto _ : state) {
++        ossl_rsaz_amm52x20_x1_ifma256(res, a, b, m, k0);
++        benchmark::DoNotOptimize(res);
++    }
++}
++
++static void BM_AMM52x20_x2_ifma256(benchmark::State &state) {
++    constexpr size_t N = 20;
++    BN_ULONG res[2][N];
++    BN_ULONG a[2][N];
++    BN_ULONG b[2][N];
++    BN_ULONG m[2][N];
++    BN_ULONG k0[2] = {0x42, 0x50};
++    memset(m[0], 1, N * sizeof(BN_ULONG));
++    memset(a[0], 2, N * sizeof(BN_ULONG));
++    memset(b[0], 3, N * sizeof(BN_ULONG));
++    memset(m[1], 4, N * sizeof(BN_ULONG));
++    memset(a[1], 5, N * sizeof(BN_ULONG));
++    memset(b[1], 6, N * sizeof(BN_ULONG));
++    for (auto _ : state) {
++        ossl_rsaz_amm52x20_x2_ifma256(res[0], a[0], b[0], m[0], k0);
++        benchmark::DoNotOptimize(res);
++    }
++}
++
++static void BM_AMM52x30_x1_ifma256(benchmark::State &state) {
++    constexpr size_t N = 32;
++    BN_ULONG res[N];
++    BN_ULONG a[N];
++    BN_ULONG b[N];
++    BN_ULONG m[N];
++    BN_ULONG k0 = 0x42;
++    memset(m, 1, N * sizeof(BN_ULONG));
++    memset(a, 2, N * sizeof(BN_ULONG));
++    memset(b, 3, N * sizeof(BN_ULONG));
++    for (auto _ : state) {
++        ossl_rsaz_amm52x30_x1_ifma256(res, a, b, m, k0);
++        benchmark::DoNotOptimize(res);
++    }
++}
++
++static void BM_AMM52x30_x2_ifma256(benchmark::State &state) {
++    constexpr size_t N = 32;
++    BN_ULONG res[2][N];
++    BN_ULONG a[2][N];
++    BN_ULONG b[2][N];
++    BN_ULONG m[2][N];
++    BN_ULONG k0[2] = {0x42, 0x50};
++    memset(m[0], 1, N * sizeof(BN_ULONG));
++    memset(a[0], 2, N * sizeof(BN_ULONG));
++    memset(b[0], 3, N * sizeof(BN_ULONG));
++    memset(m[1], 4, N * sizeof(BN_ULONG));
++    memset(a[1], 5, N * sizeof(BN_ULONG));
++    memset(b[1], 6, N * sizeof(BN_ULONG));
++    for (auto _ : state) {
++        ossl_rsaz_amm52x30_x2_ifma256(res[0], a[0], b[0], m[0], k0);
++        benchmark::DoNotOptimize(res);
++    }
++}
++
++
++static void BM_AMM52x40_x1_ifma256(benchmark::State &state) {
++    constexpr size_t N = 40;
++    BN_ULONG res[N];
++    BN_ULONG a[N];
++    BN_ULONG b[N];
++    BN_ULONG m[N];
++    BN_ULONG k0 = 0x42;
++    memset(m, 1, N * sizeof(BN_ULONG));
++    memset(a, 2, N * sizeof(BN_ULONG));
++    memset(b, 3, N * sizeof(BN_ULONG));
++    for (auto _ : state) {
++        ossl_rsaz_amm52x40_x1_ifma256(res, a, b, m, k0);
++        benchmark::DoNotOptimize(res);
++    }
++}
++
++static void BM_AMM52x40_x2_ifma256(benchmark::State &state) {
++    constexpr size_t N = 40;
++    BN_ULONG res[2][N];
++    BN_ULONG a[2][N];
++    BN_ULONG b[2][N];
++    BN_ULONG m[2][N];
++    BN_ULONG k0[2] = {0x42, 0x50};
++    memset(m[0], 1, N * sizeof(BN_ULONG));
++    memset(a[0], 2, N * sizeof(BN_ULONG));
++    memset(b[0], 3, N * sizeof(BN_ULONG));
++    memset(m[1], 4, N * sizeof(BN_ULONG));
++    memset(a[1], 5, N * sizeof(BN_ULONG));
++    memset(b[1], 6, N * sizeof(BN_ULONG));
++    for (auto _ : state) {
++        ossl_rsaz_amm52x40_x2_ifma256(res[0], a[0], b[0], m[0], k0);
++        benchmark::DoNotOptimize(res);
++    }
++}
++
++BENCHMARK(BM_AMM52x20_x1_ifma256)->Unit(benchmark::kNanosecond);
++BENCHMARK(BM_AMM52x20_x2_ifma256)->Unit(benchmark::kNanosecond);
++BENCHMARK(BM_AMM52x30_x1_ifma256)->Unit(benchmark::kNanosecond);
++BENCHMARK(BM_AMM52x30_x2_ifma256)->Unit(benchmark::kNanosecond);
++BENCHMARK(BM_AMM52x40_x1_ifma256)->Unit(benchmark::kNanosecond);
++BENCHMARK(BM_AMM52x40_x2_ifma256)->Unit(benchmark::kNanosecond);
+diff --git a/bench/modexp.cc b/bench/modexp.cc
+new file mode 100644
+index 0000000000..ed8d99ad3a
+--- /dev/null
++++ b/bench/modexp.cc
+@@ -0,0 +1,367 @@
++// Copied from the same benchmark in BoringSSL
++#include <benchmark/benchmark.h>
++
++#include <openssl/bn.h>
++#include <openssl/rsa.h>
++
++// Generate a random BIGNUM of specified bit size
++static BIGNUM *generate_random_bn(int bits) {
++  BIGNUM *bn = BN_new();
++  if (!bn) {
++    return NULL;
++  }
++
++  if (!BN_rand(bn, bits, BN_RAND_TOP_ANY, BN_RAND_BOTTOM_ANY)) {
++    BN_free(bn);
++    return NULL;
++  }
++
++  return bn;
++}
++
++// Generate a random modulus (prime number) suitable for Montgomery
++static BIGNUM *generate_random_prime(int bits) {
++  BIGNUM *prime = BN_new();
++  if (!prime) {
++    return NULL;
++  }
++
++  if (!BN_generate_prime_ex(prime, bits, 0, NULL, NULL, NULL)) {
++    BN_free(prime);
++    return NULL;
++  }
++
++  return prime;
++}
++
++// Create Montgomery context for a modulus
++static BN_MONT_CTX *create_montgomery_ctx(BIGNUM *mod, BN_CTX *ctx) {
++  BN_MONT_CTX *mont = BN_MONT_CTX_new();
++  if (!mont) {
++    return NULL;
++  }
++
++  if (!BN_MONT_CTX_set(mont, mod, ctx)) {
++    BN_MONT_CTX_free(mont);
++    return NULL;
++  }
++
++  return mont;
++}
++
++static void BM_OSSLModMulMontgomery(benchmark::State &state) {
++  int bits = state.range(0);
++  BN_CTX *ctx = BN_CTX_new();
++  BIGNUM *mod = generate_random_prime(bits);
++  BIGNUM *a = generate_random_bn(bits);
++  BIGNUM *b = generate_random_bn(bits);
++  
++  // Create Montgomery context
++  BN_MONT_CTX *mont = create_montgomery_ctx(mod, ctx);
++
++  if (!mont) {
++    BN_free(mod);
++    BN_free(a);
++    BN_free(b);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create Montgomery context\n");
++    abort();
++  }
++
++  // Ensure inputs are less than modulus
++  if (BN_cmp(a, mod) >= 0) {
++    BN_mod(a, a, mod, ctx);
++  }
++  if (BN_cmp(b, mod) >= 0) {
++    BN_mod(b, b, mod, ctx);
++  }
++
++  // Convert inputs to Montgomery form
++  BIGNUM *a_mont = BN_new();
++  BIGNUM *b_mont = BN_new();
++  BIGNUM *result = BN_new();
++  
++  if (!a_mont || !b_mont || !result) {
++    BN_free(a_mont);
++    BN_free(b_mont);
++    BN_free(result);
++    BN_free(mod);
++    BN_free(a);
++    BN_free(b);
++    BN_MONT_CTX_free(mont);
++    BN_CTX_free(ctx);
++    return;
++  }
++
++  BN_to_montgomery(a_mont, a, mont, ctx);
++  BN_to_montgomery(b_mont, b, mont, ctx);
++
++  for (auto _ : state) {
++    BN_mod_mul_montgomery(result, a_mont, b_mont, mont, ctx);
++    benchmark::DoNotOptimize(result);
++  }
++
++  BN_free(a_mont);
++  BN_free(b_mont);
++  BN_free(result);
++  BN_free(mod);
++  BN_free(a);
++  BN_free(b);
++  BN_MONT_CTX_free(mont);
++  BN_CTX_free(ctx);
++}
++
++static void BM_OSSLModExpConsttime(benchmark::State &state) {
++  int bits = state.range(0);
++  BN_CTX *ctx = BN_CTX_new();
++  BIGNUM *mod = generate_random_prime(bits);
++  BIGNUM *base = generate_random_bn(bits);
++  BIGNUM *exp = generate_random_bn(bits);
++  BN_MONT_CTX *mont = create_montgomery_ctx(mod, ctx);
++
++  if (!mont) {
++    BN_free(mod);
++    BN_free(base);
++    BN_free(exp);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create Montgomery context\n");
++    abort();
++  }
++
++  // Ensure base < modulus
++  if (BN_cmp(base, mod) >= 0) {
++      BN_mod(base, base, mod, ctx);
++  }
++
++  BIGNUM *result = BN_new();
++  if (!result) {
++    BN_free(mod);
++    BN_free(base);
++    BN_free(exp);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create result BIGNUM\n");
++    abort();
++  }
++
++  for (auto _ : state) {
++    BN_mod_exp_mont_consttime(result, base, exp, mod, ctx, mont);
++  }
++
++  BN_free(mod);
++  BN_free(base);
++  BN_free(exp);
++  BN_MONT_CTX_free(mont);
++  BN_CTX_free(ctx);
++}
++
++static void BM_OSSLModExpRSAE(benchmark::State &state) {
++  int bits = state.range(0);
++  BN_CTX *ctx = BN_CTX_new();
++  BIGNUM *mod = generate_random_prime(bits);
++  BIGNUM *base = generate_random_bn(bits);
++  BIGNUM *exp = BN_new();
++  BN_set_word(exp, 65537);
++  BN_MONT_CTX *mont = create_montgomery_ctx(mod, ctx);
++
++  if (!mont) {
++    BN_free(mod);
++    BN_free(base);
++    BN_free(exp);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create Montgomery context\n");
++    abort();
++  }
++
++  // Ensure base < modulus
++  if (BN_cmp(base, mod) >= 0) {
++      BN_mod(base, base, mod, ctx);
++  }
++
++  BIGNUM *result = BN_new();
++  if (!result) {
++    BN_free(mod);
++    BN_free(base);
++    BN_free(exp);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create result BIGNUM\n");
++    abort();
++  }
++
++  for (auto _ : state) {
++    BN_mod_exp_mont(result, base, exp, mod, ctx, mont);
++    benchmark::DoNotOptimize(result);
++  }
++
++  BN_free(mod);
++  BN_free(base);
++  BN_free(exp);
++  BN_MONT_CTX_free(mont);
++  BN_CTX_free(ctx);
++}
++
++static void BM_OSSLModExpConsttime_x2(benchmark::State &state) {
++  int bits = state.range(0);
++  BN_CTX *ctx = BN_CTX_new();
++  BIGNUM *mod1 = generate_random_prime(bits);
++  BIGNUM *base1 = generate_random_bn(bits);
++  BIGNUM *exp1 = generate_random_bn(bits);
++  BN_MONT_CTX *mont1 = create_montgomery_ctx(mod1, ctx);
++  BIGNUM *mod2 = generate_random_prime(bits);
++  BIGNUM *base2 = generate_random_bn(bits);
++  BIGNUM *exp2 = generate_random_bn(bits);
++  BN_MONT_CTX *mont2 = create_montgomery_ctx(mod2, ctx);
++
++  if (!mont1 || !mont2) {
++    BN_free(mod1);
++    BN_free(base1);
++    BN_free(exp1);
++    BN_free(mod2);
++    BN_free(base2);
++    BN_free(exp2);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create Montgomery context\n");
++    abort();
++  }
++
++  // Ensure base < modulus
++  if (BN_cmp(base1, mod1) >= 0) {
++      BN_mod(base1, base1, mod1, ctx);
++  }
++  if (BN_cmp(base2, mod2) >= 0) {
++      BN_mod(base2, base2, mod2, ctx);
++  }
++
++  BIGNUM *result1 = BN_new();
++  BIGNUM *result2 = BN_new();
++  if (!result1 || !result2) {
++    BN_free(mod1);
++    BN_free(base1);
++    BN_free(exp1);
++    BN_free(mod2);
++    BN_free(base2);
++    BN_free(exp2);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create result BIGNUMs\n");
++    abort();
++  }
++
++  for (auto _ : state) {
++    BN_mod_exp_mont_consttime_x2(result1, base1, exp1, mod1, mont1, result2, base2, exp2, mod2, mont2, ctx);
++    benchmark::DoNotOptimize(result1);
++    benchmark::DoNotOptimize(result2);
++  }
++
++  BN_free(mod1);
++  BN_free(mod2);
++  BN_free(base1);
++  BN_free(base2);
++  BN_free(exp1);
++  BN_free(exp2);
++  BN_MONT_CTX_free(mont1);
++  BN_MONT_CTX_free(mont2);
++  BN_CTX_free(ctx);
++}
++
++static void BM_OSSLRSAModExpCRT(benchmark::State &state) {
++  int bits = state.range(0);
++  BN_CTX *ctx = BN_CTX_new();
++  if (!ctx) {
++    fprintf(stderr, "Failed to create BN_CTX\n");
++    abort();
++  }
++
++  // Generate RSA key with all components
++  RSA *rsa = RSA_new();
++  if (!rsa) {
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create RSA structure\n");
++    abort();
++  }
++
++  // Set the method to use OpenSSL's rsa_ossl_mod_exp
++  if (!RSA_set_method(rsa, RSA_PKCS1_OpenSSL())) {
++    RSA_free(rsa);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to set RSA method\n");
++    abort();
++  }
++
++  // Generate public exponent (65537)
++  BIGNUM *e = BN_new();
++  if (!e || !BN_set_word(e, RSA_F4)) {
++    BN_free(e);
++    RSA_free(rsa);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create public exponent\n");
++    abort();
++  }
++
++  // Generate RSA key
++  if (!RSA_generate_key_ex(rsa, bits, e, NULL)) {
++    BN_free(e);
++    RSA_free(rsa);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to generate RSA key\n");
++    abort();
++  }
++
++  BN_free(e);
++
++  // Enable caching of private key Montgomery contexts
++  RSA_set_flags(rsa, RSA_FLAG_CACHE_PRIVATE);
++
++  // Get modulus n
++  const BIGNUM *n = RSA_get0_n(rsa);
++  if (!n) {
++    RSA_free(rsa);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to get modulus\n");
++    abort();
++  }
++
++  // Generate random input (must be less than modulus n)
++  BIGNUM *input = BN_new();
++  if (!input) {
++    RSA_free(rsa);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create input BIGNUM\n");
++    abort();
++  }
++
++  // Generate random number less than n
++  if (!BN_rand_range(input, n)) {
++    BN_free(input);
++    RSA_free(rsa);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to generate random input\n");
++    abort();
++  }
++
++  BIGNUM *result = BN_new();
++  if (!result) {
++    BN_free(input);
++    RSA_free(rsa);
++    BN_CTX_free(ctx);
++    fprintf(stderr, "Failed to create result BIGNUM\n");
++    abort();
++  }
++
++  for (auto _ : state) {
++    if (!rsa_ossl_mod_exp(result, input, rsa, ctx)) {
++      state.SkipWithError("rsa_ossl_mod_exp failed");
++      break;
++    }
++    benchmark::DoNotOptimize(result);
++  }
++
++  BN_free(input);
++  BN_free(result);
++  RSA_free(rsa);
++  BN_CTX_free(ctx);
++}
++
++BENCHMARK(BM_OSSLModMulMontgomery)->DenseRange(64, 4096, 64)->Unit(benchmark::kNanosecond);
++BENCHMARK(BM_OSSLModExpConsttime)->Arg(1024)->Arg(1536)->Arg(2048)->Arg(3072)->Arg(4096)->Unit(benchmark::kMicrosecond);
++BENCHMARK(BM_OSSLModExpRSAE)->Arg(1024)->Arg(1536)->Arg(2048)->Arg(3072)->Arg(4096)->Unit(benchmark::kMicrosecond);
++BENCHMARK(BM_OSSLModExpConsttime_x2)->Arg(1024)->Arg(1536)->Arg(2048)->Arg(3072)->Arg(4096)->Unit(benchmark::kMicrosecond);
++BENCHMARK(BM_OSSLRSAModExpCRT)->Arg(2048)->Arg(3072)->Arg(4096)->Unit(benchmark::kMicrosecond);
+\ No newline at end of file
+diff --git a/bench/rsa.cc b/bench/rsa.cc
+new file mode 100644
+index 0000000000..fbbe9761e9
+--- /dev/null
++++ b/bench/rsa.cc
+@@ -0,0 +1,407 @@
++// Benchmark for OpenSSL RSA signing using EVP (EVP_PKEY_sign)
++#include <benchmark/benchmark.h>
++
++#include <openssl/evp.h>
++#include <openssl/rsa.h>
++#include <openssl/pem.h>
++#include <openssl/err.h>
++#include <openssl/sha.h>
++#include <openssl/rand.h>
++#include <cstring>
++
++// Generate an RSA key pair of specified bit size
++static EVP_PKEY *generate_rsa_key(int bits) {
++  EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
++  if (!ctx) {
++    return NULL;
++  }
++
++  if (EVP_PKEY_keygen_init(ctx) <= 0) {
++    EVP_PKEY_CTX_free(ctx);
++    return NULL;
++  }
++
++  if (EVP_PKEY_CTX_set_rsa_keygen_bits(ctx, bits) <= 0) {
++    EVP_PKEY_CTX_free(ctx);
++    return NULL;
++  }
++
++  EVP_PKEY *pkey = NULL;
++  if (EVP_PKEY_keygen(ctx, &pkey) <= 0) {
++    EVP_PKEY_CTX_free(ctx);
++    return NULL;
++  }
++
++  EVP_PKEY_CTX_free(ctx);
++  return pkey;
++}
++
++// Generate a SHA-256 digest of random data
++static unsigned char *generate_digest(size_t *digest_len) {
++  const size_t data_size = 32; // SHA-256 produces 32-byte digest
++  unsigned char *digest = (unsigned char *)OPENSSL_malloc(data_size);
++  if (!digest) {
++    return NULL;
++  }
++
++  // Generate random data and hash it
++  unsigned char data[256];
++  if (!RAND_bytes(data, sizeof(data))) {
++    OPENSSL_free(digest);
++    return NULL;
++  }
++
++  unsigned int hash_len;
++  if (!EVP_Digest(data, sizeof(data), digest, &hash_len, EVP_sha256(), NULL)) {
++    OPENSSL_free(digest);
++    return NULL;
++  }
++
++  *digest_len = hash_len;
++  return digest;
++}
++
++static void BM_RSASign_EVP_PKEY_sign(benchmark::State &state) {
++  int bits = state.range(0);
++  EVP_PKEY *pkey = generate_rsa_key(bits);
++  if (!pkey) {
++    state.SkipWithError("Failed to generate RSA key");
++    return;
++  }
++
++  size_t digest_len;
++  unsigned char *digest = generate_digest(&digest_len);
++  if (!digest) {
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to generate digest");
++    return;
++  }
++
++  EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(pkey, NULL);
++  if (!ctx) {
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to create PKEY context");
++    return;
++  }
++
++  if (EVP_PKEY_sign_init(ctx) <= 0) {
++    EVP_PKEY_CTX_free(ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to initialize sign context");
++    return;
++  }
++
++  if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0) {
++    EVP_PKEY_CTX_free(ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to set signature digest");
++    return;
++  }
++
++  // Determine signature length
++  size_t sig_len;
++  if (EVP_PKEY_sign(ctx, NULL, &sig_len, digest, digest_len) <= 0) {
++    EVP_PKEY_CTX_free(ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to determine signature length");
++    return;
++  }
++
++  unsigned char *sig = (unsigned char *)OPENSSL_malloc(sig_len);
++  if (!sig) {
++    EVP_PKEY_CTX_free(ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to allocate signature buffer");
++    return;
++  }
++
++  {
++    size_t current_sig_len = sig_len;
++    if (EVP_PKEY_sign(ctx, sig, &current_sig_len, digest, digest_len) <= 0) {
++      state.SkipWithError("Failed to sign");
++      return;
++    }
++  }
++
++  for (auto _ : state) {
++    size_t current_sig_len = sig_len;
++    if (EVP_PKEY_sign(ctx, sig, &current_sig_len, digest, digest_len) <= 0) {
++      state.SkipWithError("Failed to sign");
++      break;
++    }
++  }
++
++  OPENSSL_free(sig);
++  EVP_PKEY_CTX_free(ctx);
++  OPENSSL_free(digest);
++  EVP_PKEY_free(pkey);
++}
++
++static void BM_RSAVerify_EVP_PKEY_verify(benchmark::State &state) {
++  int bits = state.range(0);
++  EVP_PKEY *pkey = generate_rsa_key(bits);
++  if (!pkey) {
++    state.SkipWithError("Failed to generate RSA key");
++    return;
++  }
++
++  size_t digest_len;
++  unsigned char *digest = generate_digest(&digest_len);
++  if (!digest) {
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to generate digest");
++    return;
++  }
++
++  // Create a signature context for signing
++  EVP_PKEY_CTX *sign_ctx = EVP_PKEY_CTX_new(pkey, NULL);
++  if (!sign_ctx) {
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to create sign PKEY context");
++    return;
++  }
++
++  if (EVP_PKEY_sign_init(sign_ctx) <= 0) {
++    EVP_PKEY_CTX_free(sign_ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to initialize sign context");
++    return;
++  }
++
++  if (EVP_PKEY_CTX_set_signature_md(sign_ctx, EVP_sha256()) <= 0) {
++    EVP_PKEY_CTX_free(sign_ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to set signature digest");
++    return;
++  }
++
++  // Determine signature length and create signature
++  size_t sig_len;
++  if (EVP_PKEY_sign(sign_ctx, NULL, &sig_len, digest, digest_len) <= 0) {
++    EVP_PKEY_CTX_free(sign_ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to determine signature length");
++    return;
++  }
++
++  unsigned char *sig = (unsigned char *)OPENSSL_malloc(sig_len);
++  if (!sig) {
++    EVP_PKEY_CTX_free(sign_ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to allocate signature buffer");
++    return;
++  }
++
++  size_t current_sig_len = sig_len;
++  if (EVP_PKEY_sign(sign_ctx, sig, &current_sig_len, digest, digest_len) <= 0) {
++    OPENSSL_free(sig);
++    EVP_PKEY_CTX_free(sign_ctx);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to create signature");
++    return;
++  }
++
++  EVP_PKEY_CTX_free(sign_ctx);
++
++  // Create verification context
++  EVP_PKEY_CTX *verify_ctx = EVP_PKEY_CTX_new(pkey, NULL);
++  if (!verify_ctx) {
++    OPENSSL_free(sig);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to create verify PKEY context");
++    return;
++  }
++
++  if (EVP_PKEY_verify_init(verify_ctx) <= 0) {
++    EVP_PKEY_CTX_free(verify_ctx);
++    OPENSSL_free(sig);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to initialize verify context");
++    return;
++  }
++
++  if (EVP_PKEY_CTX_set_signature_md(verify_ctx, EVP_sha256()) <= 0) {
++    EVP_PKEY_CTX_free(verify_ctx);
++    OPENSSL_free(sig);
++    OPENSSL_free(digest);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to set verify signature digest");
++    return;
++  }
++
++  if (EVP_PKEY_verify(verify_ctx, sig, current_sig_len, digest, digest_len) <= 0) {
++    state.SkipWithError("Failed to verify");
++    return;
++  }
++
++  for (auto _ : state) {
++    if (EVP_PKEY_verify(verify_ctx, sig, current_sig_len, digest, digest_len) <= 0) {
++      state.SkipWithError("Failed to verify");
++      break;
++    }
++  }
++
++  EVP_PKEY_CTX_free(verify_ctx);
++  OPENSSL_free(sig);
++  OPENSSL_free(digest);
++  EVP_PKEY_free(pkey);
++}
++
++static void BM_RSASign_RSA_sign(benchmark::State &state) {
++  int bits = state.range(0);
++  EVP_PKEY *pkey = generate_rsa_key(bits);
++  if (!pkey) {
++    state.SkipWithError("Failed to generate RSA key");
++    return;
++  }
++
++  // Extract RSA key from EVP_PKEY
++  RSA *rsa = EVP_PKEY_get1_RSA(pkey);
++  if (!rsa) {
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to extract RSA key");
++    return;
++  }
++
++  size_t digest_len;
++  unsigned char *digest = generate_digest(&digest_len);
++  if (!digest) {
++    RSA_free(rsa);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to generate digest");
++    return;
++  }
++
++  // Determine signature length
++  unsigned int sig_len = RSA_size(rsa);
++  unsigned char *sig = (unsigned char *)OPENSSL_malloc(sig_len);
++  if (!sig) {
++    OPENSSL_free(digest);
++    RSA_free(rsa);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to allocate signature buffer");
++    return;
++  }
++
++  {
++    unsigned int current_sig_len = sig_len;
++    if (!RSA_sign(NID_sha256, digest, digest_len, sig, &current_sig_len, rsa)) {
++      state.SkipWithError("Failed to sign");
++      return;
++    }
++  }
++
++  for (auto _ : state) {
++    unsigned int current_sig_len = sig_len;
++    if (!RSA_sign(NID_sha256, digest, digest_len, sig, &current_sig_len, rsa)) {
++      state.SkipWithError("Failed to sign");
++      break;
++    }
++  }
++
++  OPENSSL_free(sig);
++  OPENSSL_free(digest);
++  RSA_free(rsa);
++  EVP_PKEY_free(pkey);
++}
++
++static void BM_RSAVerify_RSA_verify(benchmark::State &state) {
++  int bits = state.range(0);
++  EVP_PKEY *pkey = generate_rsa_key(bits);
++  if (!pkey) {
++    state.SkipWithError("Failed to generate RSA key");
++    return;
++  }
++
++  // Extract RSA key from EVP_PKEY
++  RSA *rsa = EVP_PKEY_get1_RSA(pkey);
++  if (!rsa) {
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to extract RSA key");
++    return;
++  }
++
++  size_t digest_len;
++  unsigned char *digest = generate_digest(&digest_len);
++  if (!digest) {
++    RSA_free(rsa);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to generate digest");
++    return;
++  }
++
++  // Create a signature using RSA_sign
++  unsigned int sig_len = RSA_size(rsa);
++  unsigned char *sig = (unsigned char *)OPENSSL_malloc(sig_len);
++  if (!sig) {
++    OPENSSL_free(digest);
++    RSA_free(rsa);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to allocate signature buffer");
++    return;
++  }
++
++  unsigned int current_sig_len = sig_len;
++  if (!RSA_sign(NID_sha256, digest, digest_len, sig, &current_sig_len, rsa)) {
++    OPENSSL_free(sig);
++    OPENSSL_free(digest);
++    RSA_free(rsa);
++    EVP_PKEY_free(pkey);
++    state.SkipWithError("Failed to create signature");
++    return;
++  }
++
++  if (RSA_verify(NID_sha256, digest, digest_len, sig, current_sig_len, rsa) != 1) {
++    state.SkipWithError("Failed to verify");
++    return;
++  }
++
++  for (auto _ : state) {
++    if (RSA_verify(NID_sha256, digest, digest_len, sig, current_sig_len, rsa) != 1) {
++      state.SkipWithError("Failed to verify");
++      break;
++    }
++  }
++
++  OPENSSL_free(sig);
++  OPENSSL_free(digest);
++  RSA_free(rsa);
++  EVP_PKEY_free(pkey);
++}
++
++BENCHMARK(BM_RSASign_EVP_PKEY_sign)
++    ->Arg(2048)
++    ->Arg(3072)
++    ->Arg(4096)
++    ->Unit(benchmark::kMicrosecond);
++
++BENCHMARK(BM_RSAVerify_EVP_PKEY_verify)
++    ->Arg(2048)
++    ->Arg(3072)
++    ->Arg(4096)
++    ->Unit(benchmark::kMicrosecond);
++
++BENCHMARK(BM_RSASign_RSA_sign)
++    ->Arg(2048)
++    ->Arg(3072)
++    ->Arg(4096)
++    ->Unit(benchmark::kMicrosecond);
++
++BENCHMARK(BM_RSAVerify_RSA_verify)
++    ->Arg(2048)
++    ->Arg(3072)
++    ->Arg(4096)
++    ->Unit(benchmark::kMicrosecond);
+diff --git a/bench/test.cc b/bench/test.cc
+new file mode 100644
+index 0000000000..7ec6cbac53
+--- /dev/null
++++ b/bench/test.cc
+@@ -0,0 +1,36 @@
++#include <openssl/bn.h>
++#include <cstring>
++
++int main() {
++  BN_ULONG res[100];
++  BN_ULONG a[40];
++  BN_ULONG b[40];
++  BN_ULONG m[40];
++  BN_ULONG k0 = 0x42;
++  memset(m, 1, 40 * sizeof(BN_ULONG));
++  memset(a, 2, 40 * sizeof(BN_ULONG));
++  memset(b, 3, 40 * sizeof(BN_ULONG));
++
++  memset(res, 0x42, 100 * sizeof(BN_ULONG));
++  ossl_rsaz_amm52x20_x1_ifma256(res, a, b, m, k0); // clobbers res[0:20]
++  for (int i = 0; i < 100; i++) {
++    printf("%d: %016lx ", i, res[i]);
++  }
++  printf("\n");
++
++  memset(res, 0x42, 100 * sizeof(BN_ULONG));
++  ossl_rsaz_amm52x30_x1_ifma256(res, a, b, m, k0); // clobbers res[0:32]
++  for (int i = 0; i < 100; i++) {
++    printf("%d: %016lx ", i, res[i]);
++  }
++  printf("\n");
++
++  memset(res, 0x42, 100 * sizeof(BN_ULONG));
++  ossl_rsaz_amm52x40_x1_ifma256(res, a, b, m, k0); // clobbers res[0:40]
++  for (int i = 0; i < 100; i++) {
++    printf("%d: %016lx ", i, res[i]);
++  }
++  // TODO: try out *_x2 functions 
++  printf("\n");
++  return 0;
++}
+diff --git a/build.sh.old b/build.sh.old
+new file mode 100644
+index 0000000000..e5c5092ce1
+--- /dev/null
++++ b/build.sh.old
+@@ -0,0 +1,17 @@
++# export PREFIX=/opt/openssl-test
++# export CFLAGS="-g -O2 -fno-omit-frame-pointer -march=native"
++# export LDFLAGS="-Wl,-rpath,$PREFIX/lib"
++
++set -euxo pipefail
++
++cd "$(dirname "$0")" || exit 1
++
++# make clean
++# make distclean
++
++perl Configure linux-x86_64 shared -DOPENSSL_PIC
++
++make -j8
++# make install_sw
++
++echo "Success: OpenSSL debug built"
+diff --git a/build_openssl.sh b/build_openssl.sh
+new file mode 100755
+index 0000000000..d9ce4ee966
+--- /dev/null
++++ b/build_openssl.sh
+@@ -0,0 +1,18 @@
++#! /bin/bash
++
++cd "$(dirname "$0")" || exit 1
++
++set -euxo pipefail
++
++export PREFIX="$(realpath "$(dirname "$0")/openssl")"
++export CFLAGS="-g -Wall -O3"
++export LDFLAGS="-Wl,-rpath,$PREFIX/lib"
++
++echo 'Prerequisite: please make sure clang 21.1.8 is installed at /opt/llvm21/!'
++
++CC=/opt/llvm21/bin/clang CXX=/opt/llvm21/bin/clang++ perl Configure linux-x86_64 shared -DOPENSSL_PIC --prefix="$PREFIX" --openssldir="$PREFIX/ssl" --libdir="$PREFIX/lib"
++
++make -j8
++make install_sw
++
++echo "Success: OpenSSL built and installed to $PREFIX"
+diff --git a/crypto/rsa/rsa_ossl.c b/crypto/rsa/rsa_ossl.c
+index b883baa58f..9a25a6c2b4 100644
+--- a/crypto/rsa/rsa_ossl.c
++++ b/crypto/rsa/rsa_ossl.c
+@@ -36,7 +36,7 @@ static int rsa_ossl_public_decrypt(int flen, const unsigned char *from,
+     unsigned char *to, RSA *rsa, int padding);
+ static int rsa_ossl_private_decrypt(int flen, const unsigned char *from,
+     unsigned char *to, RSA *rsa, int padding);
+-static int rsa_ossl_mod_exp(BIGNUM *r0, const BIGNUM *i, RSA *rsa,
++int rsa_ossl_mod_exp(BIGNUM *r0, const BIGNUM *i, RSA *rsa,
+     BN_CTX *ctx);
+ static int rsa_ossl_init(RSA *rsa);
+ static int rsa_ossl_finish(RSA *rsa);
+@@ -785,7 +785,7 @@ err:
+     return r;
+ }
+ 
+-static int rsa_ossl_mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx)
++int rsa_ossl_mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx)
+ {
+     BIGNUM *r1, *m1, *vrfy;
+     int ret = 0, smooth = 0;
+diff --git a/include/openssl/bn.h b/include/openssl/bn.h
+index 430d20dcb9..bde547f7bd 100644
+--- a/include/openssl/bn.h
++++ b/include/openssl/bn.h
+@@ -73,6 +73,85 @@ typedef unsigned int BN_ULONG;
+ #define BN_FLG_FREE 0x8000 /* used for debugging */
+ #endif
+ 
++/*
++ * For details of the methods declared below please refer to
++ *    crypto/bn/asm/rsaz-avx512.pl
++ *
++ * Naming conventions:
++ *  amm = Almost Montgomery Multiplication
++ *  ams = Almost Montgomery Squaring
++ *  52xZZ - data represented as array of ZZ digits in 52-bit radix
++ *  _x1_/_x2_ - 1 or 2 independent inputs/outputs
++ *  _ifma256 - uses 256-bit wide IFMA ISA (AVX512_IFMA256)
++ *  _avxifma256 - uses 256-bit wide AVXIFMA ISA (AVX_IFMA256)
++ */
++
++void ossl_rsaz_amm52x20_x1_ifma256(BN_ULONG *res, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    BN_ULONG k0);
++void ossl_rsaz_amm52x20_x2_ifma256(BN_ULONG *out, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    const BN_ULONG k0[2]);
++void ossl_extract_multiplier_2x20_win5(BN_ULONG *red_Y,
++    const BN_ULONG *red_table,
++    int red_table_idx1, int red_table_idx2);
++
++void ossl_rsaz_amm52x30_x1_ifma256(BN_ULONG *res, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    BN_ULONG k0);
++void ossl_rsaz_amm52x30_x2_ifma256(BN_ULONG *out, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    const BN_ULONG k0[2]);
++void ossl_extract_multiplier_2x30_win5(BN_ULONG *red_Y,
++    const BN_ULONG *red_table,
++    int red_table_idx1, int red_table_idx2);
++
++void ossl_rsaz_amm52x40_x1_ifma256(BN_ULONG *res, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    BN_ULONG k0);
++void ossl_rsaz_amm52x40_x2_ifma256(BN_ULONG *out, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    const BN_ULONG k0[2]);
++void ossl_extract_multiplier_2x40_win5(BN_ULONG *red_Y,
++    const BN_ULONG *red_table,
++    int red_table_idx1, int red_table_idx2);
++
++void ossl_rsaz_amm52x20_x1_avxifma256(BN_ULONG *res, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    BN_ULONG k0);
++void ossl_rsaz_amm52x20_x2_avxifma256(BN_ULONG *out, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    const BN_ULONG k0[2]);
++void ossl_extract_multiplier_2x20_win5_avx(BN_ULONG *red_Y,
++    const BN_ULONG *red_table,
++    int red_table_idx1,
++    int red_table_idx2);
++
++void ossl_rsaz_amm52x30_x1_avxifma256(BN_ULONG *res, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    BN_ULONG k0);
++void ossl_rsaz_amm52x30_x2_avxifma256(BN_ULONG *out, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    const BN_ULONG k0[2]);
++void ossl_extract_multiplier_2x30_win5_avx(BN_ULONG *red_Y,
++    const BN_ULONG *red_table,
++    int red_table_idx1,
++    int red_table_idx2);
++
++void ossl_rsaz_amm52x40_x1_avxifma256(BN_ULONG *res, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    BN_ULONG k0);
++void ossl_rsaz_amm52x40_x2_avxifma256(BN_ULONG *out, const BN_ULONG *a,
++    const BN_ULONG *b, const BN_ULONG *m,
++    const BN_ULONG k0[2]);
++void ossl_extract_multiplier_2x40_win5_avx(BN_ULONG *red_Y,
++    const BN_ULONG *red_table,
++    int red_table_idx1,
++    int red_table_idx2);
++
++int rsa_ossl_mod_exp(BIGNUM *r0, const BIGNUM *i, RSA *rsa,
++    BN_CTX *ctx);
++    
+ void BN_set_flags(BIGNUM *b, int n);
+ int BN_get_flags(const BIGNUM *b, int n);
+ 
+diff --git a/openssl/.gitignore b/openssl/.gitignore
+new file mode 100644
+index 0000000000..9dfa9f7ade
+--- /dev/null
++++ b/openssl/.gitignore
+@@ -0,0 +1,7 @@
++# This directory is intended to store the built OpenSSL library and headers
++
++# Ignore all files in the current directory and its subdirectories
++*
++
++# Except for the .gitignore file itself, so it can be committed
++!.gitignore
+diff --git a/util/libcrypto.num b/util/libcrypto.num
+index 78d5fa5114..854ddc17b8 100644
+--- a/util/libcrypto.num
++++ b/util/libcrypto.num
+@@ -5729,3 +5729,22 @@ EVP_SIGNATURE_has_message_update        ?	4_0_0	EXIST::FUNCTION:
+ EVP_MD_CTX_serialize                    ?	4_0_0	EXIST::FUNCTION:
+ EVP_MD_CTX_deserialize                  ?	4_0_0	EXIST::FUNCTION:
+ OSSL_ENCODER_CTX_ctrl_string            ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x20_x1_avxifma256        ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x20_x2_avxifma256        ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x30_x1_avxifma256        ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x30_x2_avxifma256        ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x40_x1_avxifma256        ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x40_x2_avxifma256        ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x20_x1_ifma256           ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x20_x2_ifma256           ?	4_0_0	EXIST::FUNCTION:
++ossl_extract_multiplier_2x20_win5       ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x30_x1_ifma256           ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x30_x2_ifma256           ?	4_0_0	EXIST::FUNCTION:
++ossl_extract_multiplier_2x30_win5       ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x40_x1_ifma256           ?	4_0_0	EXIST::FUNCTION:
++ossl_rsaz_amm52x40_x2_ifma256           ?	4_0_0	EXIST::FUNCTION:
++ossl_extract_multiplier_2x40_win5       ?	4_0_0	EXIST::FUNCTION:
++ossl_extract_multiplier_2x20_win5_avx   ?	4_0_0	EXIST::FUNCTION:
++ossl_extract_multiplier_2x30_win5_avx   ?	4_0_0	EXIST::FUNCTION:
++ossl_extract_multiplier_2x40_win5_avx   ?	4_0_0	EXIST::FUNCTION:
++rsa_ossl_mod_exp                        ?	4_0_0	EXIST::FUNCTION:
+-- 
+2.34.1
+

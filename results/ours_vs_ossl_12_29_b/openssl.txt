@@ -1,0 +1,155 @@
+[ec2-user@ip-172-31-21-213 openssl]$ ./build/bench --benchmark_repetitions=3
+2025-12-30T05:28:01+00:00
+Running ./build/bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.29, 0.28, 0.15
+-------------------------------------------------------------------------------
+Benchmark                                     Time             CPU   Iterations
+-------------------------------------------------------------------------------
+BM_ModExpConsttimeOG/1024                274686 ns       274396 ns         2473
+BM_ModExpConsttimeOG/1024                278062 ns       277720 ns         2473
+BM_ModExpConsttimeOG/1024                272418 ns       272395 ns         2473
+BM_ModExpConsttimeOG/1024_mean           275055 ns       274837 ns            3
+BM_ModExpConsttimeOG/1024_median         274686 ns       274396 ns            3
+BM_ModExpConsttimeOG/1024_stddev           2840 ns         2690 ns            3
+BM_ModExpConsttimeOG/1024_cv               1.03 %          0.98 %             3
+BM_ModExpConsttimeOG/1536                850254 ns       850083 ns          854
+BM_ModExpConsttimeOG/1536                845927 ns       845913 ns          854
+BM_ModExpConsttimeOG/1536                854977 ns       853785 ns          854
+BM_ModExpConsttimeOG/1536_mean           850386 ns       849927 ns            3
+BM_ModExpConsttimeOG/1536_median         850254 ns       850083 ns            3
+BM_ModExpConsttimeOG/1536_stddev           4526 ns         3938 ns            3
+BM_ModExpConsttimeOG/1536_cv               0.53 %          0.46 %             3
+BM_ModExpConsttimeOG/2048               1927245 ns      1927123 ns          357
+BM_ModExpConsttimeOG/2048               1970097 ns      1968904 ns          357
+BM_ModExpConsttimeOG/2048               1945212 ns      1945140 ns          357
+BM_ModExpConsttimeOG/2048_mean          1947518 ns      1947056 ns            3
+BM_ModExpConsttimeOG/2048_median        1945212 ns      1945140 ns            3
+BM_ModExpConsttimeOG/2048_stddev          21519 ns        20956 ns            3
+BM_ModExpConsttimeOG/2048_cv               1.10 %          1.08 %             3
+BM_ModExpConsttime_x2/1024               302536 ns       302507 ns         2254
+BM_ModExpConsttime_x2/1024               299280 ns       299273 ns         2254
+BM_ModExpConsttime_x2/1024               307980 ns       307980 ns         2254
+BM_ModExpConsttime_x2/1024_mean          303265 ns       303253 ns            3
+BM_ModExpConsttime_x2/1024_median        302536 ns       302507 ns            3
+BM_ModExpConsttime_x2/1024_stddev          4395 ns         4401 ns            3
+BM_ModExpConsttime_x2/1024_cv              1.45 %          1.45 %             3
+BM_ModExpConsttime_x2/1536               861233 ns       860639 ns          821
+BM_ModExpConsttime_x2/1536               847764 ns       847726 ns          821
+BM_ModExpConsttime_x2/1536               846550 ns       846525 ns          821
+BM_ModExpConsttime_x2/1536_mean          851849 ns       851630 ns            3
+BM_ModExpConsttime_x2/1536_median        847764 ns       847726 ns            3
+BM_ModExpConsttime_x2/1536_stddev          8149 ns         7825 ns            3
+BM_ModExpConsttime_x2/1536_cv              0.96 %          0.92 %             3
+BM_ModExpConsttime_x2/2048              1768866 ns      1768824 ns          397
+BM_ModExpConsttime_x2/2048              1797989 ns      1797908 ns          397
+BM_ModExpConsttime_x2/2048              1771049 ns      1770972 ns          397
+BM_ModExpConsttime_x2/2048_mean         1779301 ns      1779235 ns            3
+BM_ModExpConsttime_x2/2048_median       1771049 ns      1770972 ns            3
+BM_ModExpConsttime_x2/2048_stddev         16221 ns        16207 ns            3
+BM_ModExpConsttime_x2/2048_cv              0.91 %          0.91 %             3
+BM_RSASign_EVP_PKEY_sign/2048            344986 ns       344982 ns         1984
+BM_RSASign_EVP_PKEY_sign/2048            343243 ns       343221 ns         1984
+BM_RSASign_EVP_PKEY_sign/2048            348427 ns       348194 ns         1984
+BM_RSASign_EVP_PKEY_sign/2048_mean       345552 ns       345466 ns            3
+BM_RSASign_EVP_PKEY_sign/2048_median     344986 ns       344982 ns            3
+BM_RSASign_EVP_PKEY_sign/2048_stddev       2638 ns         2521 ns            3
+BM_RSASign_EVP_PKEY_sign/2048_cv           0.76 %          0.73 %             3
+BM_RSASign_EVP_PKEY_sign/3072            947419 ns       947416 ns          746
+BM_RSASign_EVP_PKEY_sign/3072            949855 ns       949517 ns          746
+BM_RSASign_EVP_PKEY_sign/3072            946823 ns       946682 ns          746
+BM_RSASign_EVP_PKEY_sign/3072_mean       948032 ns       947872 ns            3
+BM_RSASign_EVP_PKEY_sign/3072_median     947419 ns       947416 ns            3
+BM_RSASign_EVP_PKEY_sign/3072_stddev       1606 ns         1471 ns            3
+BM_RSASign_EVP_PKEY_sign/3072_cv           0.17 %          0.16 %             3
+BM_RSASign_EVP_PKEY_sign/4096           1916131 ns      1915424 ns          371
+BM_RSASign_EVP_PKEY_sign/4096           1892883 ns      1892881 ns          371
+BM_RSASign_EVP_PKEY_sign/4096           1875389 ns      1875346 ns          371
+BM_RSASign_EVP_PKEY_sign/4096_mean      1894801 ns      1894550 ns            3
+BM_RSASign_EVP_PKEY_sign/4096_median    1892883 ns      1892881 ns            3
+BM_RSASign_EVP_PKEY_sign/4096_stddev      20439 ns        20091 ns            3
+BM_RSASign_EVP_PKEY_sign/4096_cv           1.08 %          1.06 %             3
+
+second run:
+
+[ec2-user@ip-172-31-21-213 openssl]$ ./build/bench --benchmark_repetitions=3
+2025-12-30T05:44:10+00:00
+Running ./build/bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.33, 0.35, 0.29
+-------------------------------------------------------------------------------
+Benchmark                                     Time             CPU   Iterations
+-------------------------------------------------------------------------------
+BM_ModExpConsttimeOG/1024                277676 ns       276883 ns         2575
+BM_ModExpConsttimeOG/1024                275050 ns       274594 ns         2575
+BM_ModExpConsttimeOG/1024                272892 ns       272748 ns         2575
+BM_ModExpConsttimeOG/1024_mean           275206 ns       274742 ns            3
+BM_ModExpConsttimeOG/1024_median         275050 ns       274594 ns            3
+BM_ModExpConsttimeOG/1024_stddev           2396 ns         2071 ns            3
+BM_ModExpConsttimeOG/1024_cv               0.87 %          0.75 %             3
+BM_ModExpConsttimeOG/1536                860492 ns       860023 ns          834
+BM_ModExpConsttimeOG/1536                858529 ns       857789 ns          834
+BM_ModExpConsttimeOG/1536                867296 ns       867122 ns          834
+BM_ModExpConsttimeOG/1536_mean           862106 ns       861645 ns            3
+BM_ModExpConsttimeOG/1536_median         860492 ns       860023 ns            3
+BM_ModExpConsttimeOG/1536_stddev           4601 ns         4873 ns            3
+BM_ModExpConsttimeOG/1536_cv               0.53 %          0.57 %             3
+BM_ModExpConsttimeOG/2048               1972932 ns      1972844 ns          361
+BM_ModExpConsttimeOG/2048               1979002 ns      1978832 ns          361
+BM_ModExpConsttimeOG/2048               1964106 ns      1964067 ns          361
+BM_ModExpConsttimeOG/2048_mean          1972013 ns      1971915 ns            3
+BM_ModExpConsttimeOG/2048_median        1972932 ns      1972844 ns            3
+BM_ModExpConsttimeOG/2048_stddev           7491 ns         7426 ns            3
+BM_ModExpConsttimeOG/2048_cv               0.38 %          0.38 %             3
+BM_ModExpConsttime_x2/1024               312746 ns       312732 ns         2276
+BM_ModExpConsttime_x2/1024               308774 ns       308732 ns         2276
+BM_ModExpConsttime_x2/1024               309311 ns       309265 ns         2276
+BM_ModExpConsttime_x2/1024_mean          310277 ns       310243 ns            3
+BM_ModExpConsttime_x2/1024_median        309311 ns       309265 ns            3
+BM_ModExpConsttime_x2/1024_stddev          2155 ns         2172 ns            3
+BM_ModExpConsttime_x2/1024_cv              0.69 %          0.70 %             3
+BM_ModExpConsttime_x2/1536               856952 ns       856894 ns          834
+BM_ModExpConsttime_x2/1536               869986 ns       869937 ns          834
+BM_ModExpConsttime_x2/1536               857769 ns       857126 ns          834
+BM_ModExpConsttime_x2/1536_mean          861569 ns       861319 ns            3
+BM_ModExpConsttime_x2/1536_median        857769 ns       857126 ns            3
+BM_ModExpConsttime_x2/1536_stddev          7301 ns         7465 ns            3
+BM_ModExpConsttime_x2/1536_cv              0.85 %          0.87 %             3
+BM_ModExpConsttime_x2/2048              1808948 ns      1808691 ns          408
+BM_ModExpConsttime_x2/2048              1763518 ns      1763461 ns          408
+BM_ModExpConsttime_x2/2048              1743842 ns      1743683 ns          408
+BM_ModExpConsttime_x2/2048_mean         1772102 ns      1771945 ns            3
+BM_ModExpConsttime_x2/2048_median       1763518 ns      1763461 ns            3
+BM_ModExpConsttime_x2/2048_stddev         33391 ns        33324 ns            3
+BM_ModExpConsttime_x2/2048_cv              1.88 %          1.88 %             3
+BM_RSASign_EVP_PKEY_sign/2048            348431 ns       348420 ns         2007
+BM_RSASign_EVP_PKEY_sign/2048            349369 ns       349364 ns         2007
+BM_RSASign_EVP_PKEY_sign/2048            356069 ns       353839 ns         2007
+BM_RSASign_EVP_PKEY_sign/2048_mean       351289 ns       350541 ns            3
+BM_RSASign_EVP_PKEY_sign/2048_median     349369 ns       349364 ns            3
+BM_RSASign_EVP_PKEY_sign/2048_stddev       4166 ns         2895 ns            3
+BM_RSASign_EVP_PKEY_sign/2048_cv           1.19 %          0.83 %             3
+BM_RSASign_EVP_PKEY_sign/3072            925843 ns       925009 ns          765
+BM_RSASign_EVP_PKEY_sign/3072            925884 ns       925777 ns          765
+BM_RSASign_EVP_PKEY_sign/3072            938128 ns       936185 ns          765
+BM_RSASign_EVP_PKEY_sign/3072_mean       929952 ns       928991 ns            3
+BM_RSASign_EVP_PKEY_sign/3072_median     925884 ns       925777 ns            3
+BM_RSASign_EVP_PKEY_sign/3072_stddev       7081 ns         6243 ns            3
+BM_RSASign_EVP_PKEY_sign/3072_cv           0.76 %          0.67 %             3
+BM_RSASign_EVP_PKEY_sign/4096           1921492 ns      1920833 ns          341
+BM_RSASign_EVP_PKEY_sign/4096           1929509 ns      1916996 ns          341
+BM_RSASign_EVP_PKEY_sign/4096           1890369 ns      1889785 ns          341
+BM_RSASign_EVP_PKEY_sign/4096_mean      1913790 ns      1909205 ns            3
+BM_RSASign_EVP_PKEY_sign/4096_median    1921492 ns      1916996 ns            3
+BM_RSASign_EVP_PKEY_sign/4096_stddev      20675 ns        16927 ns            3
+BM_RSASign_EVP_PKEY_sign/4096_cv           1.08 %          0.89 %             3

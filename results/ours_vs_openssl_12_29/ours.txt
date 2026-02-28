@@ -1,0 +1,70 @@
+See BM_SpeedRNSRSASign
+
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter='RSASign' --benchmark_repetitions=5
+RNS Montgomery code is ENABLED.
+2025-12-29T20:38:02+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.13, 0.24, 0.12
+-----------------------------------------------------------------------------------
+Benchmark                                         Time             CPU   Iterations
+-----------------------------------------------------------------------------------
+BM_SpeedRSASign/2048/threads:1               549850 ns       549180 ns         1229
+BM_SpeedRSASign/2048/threads:1               549052 ns       548389 ns         1229
+BM_SpeedRSASign/2048/threads:1               545935 ns       545920 ns         1229
+BM_SpeedRSASign/2048/threads:1               559913 ns       559668 ns         1229
+BM_SpeedRSASign/2048/threads:1               564321 ns       563804 ns         1229
+BM_SpeedRSASign/2048/threads:1_mean          553814 ns       553392 ns            5
+BM_SpeedRSASign/2048/threads:1_median        549850 ns       549180 ns            5
+BM_SpeedRSASign/2048/threads:1_stddev          7875 ns         7849 ns            5
+BM_SpeedRSASign/2048/threads:1_cv              1.42 %          1.42 %             5
+BM_SpeedRSASign/3072/threads:1              1733449 ns      1733455 ns          404
+BM_SpeedRSASign/3072/threads:1              2257812 ns      2194229 ns          404
+BM_SpeedRSASign/3072/threads:1              2033213 ns      1988451 ns          404
+BM_SpeedRSASign/3072/threads:1              1754336 ns      1751052 ns          404
+BM_SpeedRSASign/3072/threads:1              1696260 ns      1694884 ns          404
+BM_SpeedRSASign/3072/threads:1_mean         1895014 ns      1872414 ns            5
+BM_SpeedRSASign/3072/threads:1_median       1754336 ns      1751052 ns            5
+BM_SpeedRSASign/3072/threads:1_stddev        242960 ns       213650 ns            5
+BM_SpeedRSASign/3072/threads:1_cv             12.82 %         11.41 %             5
+BM_SpeedRSASign/4096/threads:1              3936732 ns      3933968 ns          180
+BM_SpeedRSASign/4096/threads:1              4001230 ns      3999173 ns          180
+BM_SpeedRSASign/4096/threads:1              3937426 ns      3937316 ns          180
+BM_SpeedRSASign/4096/threads:1              3918798 ns      3918513 ns          180
+BM_SpeedRSASign/4096/threads:1              3888437 ns      3872567 ns          180
+BM_SpeedRSASign/4096/threads:1_mean         3936525 ns      3932307 ns            5
+BM_SpeedRSASign/4096/threads:1_median       3936732 ns      3933968 ns            5
+BM_SpeedRSASign/4096/threads:1_stddev         41275 ns        45437 ns            5
+BM_SpeedRSASign/4096/threads:1_cv              1.05 %          1.16 %             5
+BM_SpeedRNSRSASign/2048/threads:1            287905 ns       287899 ns         2321
+BM_SpeedRNSRSASign/2048/threads:1            308512 ns       308474 ns         2321
+BM_SpeedRNSRSASign/2048/threads:1            297219 ns       297216 ns         2321
+BM_SpeedRNSRSASign/2048/threads:1            294385 ns       294373 ns         2321
+BM_SpeedRNSRSASign/2048/threads:1            306355 ns       306344 ns         2321
+BM_SpeedRNSRSASign/2048/threads:1_mean       298875 ns       298861 ns            5
+BM_SpeedRNSRSASign/2048/threads:1_median     297219 ns       297216 ns            5
+BM_SpeedRNSRSASign/2048/threads:1_stddev       8545 ns         8535 ns            5
+BM_SpeedRNSRSASign/2048/threads:1_cv           2.86 %          2.86 %             5
+BM_SpeedRNSRSASign/3072/threads:1            707991 ns       707967 ns          932
+BM_SpeedRNSRSASign/3072/threads:1            746181 ns       746135 ns          932
+BM_SpeedRNSRSASign/3072/threads:1            792555 ns       792554 ns          932
+BM_SpeedRNSRSASign/3072/threads:1            764767 ns       764761 ns          932
+BM_SpeedRNSRSASign/3072/threads:1            764587 ns       764494 ns          932
+BM_SpeedRNSRSASign/3072/threads:1_mean       755216 ns       755182 ns            5
+BM_SpeedRNSRSASign/3072/threads:1_median     764587 ns       764494 ns            5
+BM_SpeedRNSRSASign/3072/threads:1_stddev      31165 ns        31170 ns            5
+BM_SpeedRNSRSASign/3072/threads:1_cv           4.13 %          4.13 %             5
+BM_SpeedRNSRSASign/4096/threads:1           1550967 ns      1550882 ns          416
+BM_SpeedRNSRSASign/4096/threads:1           1546269 ns      1546101 ns          416
+BM_SpeedRNSRSASign/4096/threads:1           1456788 ns      1456370 ns          416
+BM_SpeedRNSRSASign/4096/threads:1           1570153 ns      1569607 ns          416
+BM_SpeedRNSRSASign/4096/threads:1           1532058 ns      1532050 ns          416
+BM_SpeedRNSRSASign/4096/threads:1_mean      1531247 ns      1531002 ns            5
+BM_SpeedRNSRSASign/4096/threads:1_median    1546269 ns      1546101 ns            5
+BM_SpeedRNSRSASign/4096/threads:1_stddev      43798 ns        43831 ns            5
+BM_SpeedRNSRSASign/4096/threads:1_cv           2.86 %          2.86 %             5

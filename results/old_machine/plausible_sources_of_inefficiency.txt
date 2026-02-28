@@ -1,0 +1,5 @@
+- convert to RNS
+- convert from RNS
+- BigInt BIGNUM conversions
+- ctime_select
+- fixed_window_exp using suboptimal # muls

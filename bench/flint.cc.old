@@ -1,0 +1,24 @@
+// Benchmarking multiplication in the FLINT baseline for the paper
+
+#include <benchmark/benchmark.h>
+#include <flint/flint.h>
+#include <flint/fmpz_mod_poly.h>
+#include "../rns/fmpz_class.hh"
+#include "../rns/precompute/wrappers/gmp_wrapper.hpp"
+
+#define BigInt gmp_wrapper::BigInt
+
+static void BM_FLINTMul(benchmark::State &state) {
+  BigInt a = BigInt::random(BigInt(1) << state.range(0));
+  BigInt b = BigInt::random(BigInt(1) << state.range(0));
+  FMPZ a_fmpz;
+  FMPZ b_fmpz;
+  a.to_fmpz(a_fmpz);
+  b.to_fmpz(b_fmpz);
+  for (auto _ : state) {
+    benchmark::DoNotOptimize(a);
+    benchmark::DoNotOptimize(b);
+    fmpz_mul(a_fmpz.get_fmpz(), a_fmpz.get_fmpz(), b_fmpz.get_fmpz());
+    benchmark::DoNotOptimize(a);
+  }
+}

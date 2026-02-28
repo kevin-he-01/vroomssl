@@ -1,0 +1,39 @@
+## OpenSSL BN
+# 1024
+rns_reduce_raw time: 80 ns
+store time: 26 ns
+reconstruct time: 4528 ns
+mod time: 266 ns
+total time: 4900 ns
+# 1536
+rns_reduce_raw time: 202 ns
+store time: 25 ns
+reconstruct time: 7258 ns
+mod time: 239 ns
+total time: 7724 ns
+# 2048
+rns_reduce_raw time: 157 ns
+store time: 25 ns
+reconstruct time: 10142 ns
+mod time: 253 ns
+total time: 10577 ns
+
+## GMP
+# 1024
+rns_reduce_raw time: 74 ns
+store time: 23 ns
+reconstruct time: 2889 ns
+mod time: 276 ns
+total time: 3262 ns
+# 1536
+rns_reduce_raw time: 124 ns
+store time: 39 ns
+reconstruct time: 5023 ns
+mod time: 351 ns
+total time: 5537 ns
+# 2048
+rns_reduce_raw time: 146 ns
+store time: 27 ns
+reconstruct time: 6598 ns
+mod time: 272 ns
+total time: 7043 ns

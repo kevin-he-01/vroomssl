@@ -1,0 +1,44 @@
+[ec2-user@ip-172-31-21-213 boringssl]$ ./build/bssl_bench --benchmark_filter=BM_Fixed
+RNS Montgomery code is ENABLED.
+2025-12-24T23:26:02+00:00
+Running ./build/bssl_bench
+Run on (2 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x1)
+  L1 Instruction 32 KiB (x1)
+  L2 Unified 2048 KiB (x1)
+  L3 Unified 107520 KiB (x1)
+Load Average: 0.23, 0.22, 0.15
+------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations
+------------------------------------------------------------------------------------
+BM_FixedWindowTable_ctime_select<1024, 1>       1.81 ns         1.64 ns    433179503
+BM_FixedWindowTable_ctime_select<1024, 2>       1.64 ns         1.64 ns    430304796
+BM_FixedWindowTable_ctime_select<1024, 3>       1.63 ns         1.63 ns    430090487
+BM_FixedWindowTable_ctime_select<1024, 4>       23.5 ns         23.5 ns     31268256 (24% of multiplication time)
+BM_FixedWindowTable_ctime_select<1024, 5>       42.1 ns         42.0 ns     16519535
+BM_FixedWindowTable_ctime_select<1024, 6>       85.3 ns         85.3 ns      8305671
+BM_FixedWindowTable_ctime_select<1024, 7>        204 ns          204 ns      3472295
+BM_FixedWindowTable_ctime_select<1024, 8>        587 ns          587 ns      1114090
+BM_FixedWindowTable_ctime_select<1536, 1>       2.17 ns         2.17 ns    323939755
+BM_FixedWindowTable_ctime_select<1536, 2>       2.18 ns         2.18 ns    323784512
+BM_FixedWindowTable_ctime_select<1536, 3>       2.16 ns         2.16 ns    324043216
+BM_FixedWindowTable_ctime_select<1536, 4>       28.8 ns         28.8 ns     24280702 (21%)
+BM_FixedWindowTable_ctime_select<1536, 5>       55.6 ns         55.6 ns     13044009
+BM_FixedWindowTable_ctime_select<1536, 6>        108 ns          108 ns      6541330
+BM_FixedWindowTable_ctime_select<1536, 7>        378 ns          378 ns      1830795
+BM_FixedWindowTable_ctime_select<1536, 8>        766 ns          765 ns       930304
+BM_FixedWindowTable_ctime_select<2048, 1>       2.74 ns         2.74 ns    260239684
+BM_FixedWindowTable_ctime_select<2048, 2>       2.71 ns         2.71 ns    258100788
+BM_FixedWindowTable_ctime_select<2048, 3>       2.75 ns         2.74 ns    258969374
+BM_FixedWindowTable_ctime_select<2048, 4>       38.8 ns         38.7 ns     19081311 (18%)
+BM_FixedWindowTable_ctime_select<2048, 5>       69.9 ns         69.9 ns     10024483
+BM_FixedWindowTable_ctime_select<2048, 6>        133 ns          133 ns      5185921
+BM_FixedWindowTable_ctime_select<2048, 7>        486 ns          486 ns      1474724
+BM_FixedWindowTable_ctime_select<2048, 8>        953 ns          953 ns       685962
+
+reference:
+
+BM_RNSRingMultiplication<1024>           98.2 ns         98.2 ns      7182356
+BM_RNSRingMultiplication<1536>            138 ns          138 ns      4654277
+BM_RNSRingMultiplication<2048>            221 ns          221 ns      3230916
