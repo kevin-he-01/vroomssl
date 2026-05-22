@@ -58,8 +58,17 @@ class ConvertToRNS {
 
     INLINE
     inline AVXVector<limbs_out> convert_to_rns(const BigInt &integer, const MontgomeryReduce<limbs_out> &reducer) const {
-        std::array<uint64_t, indigits> digits;
-        word_reinterpret52<indigits>(integer, digits);
+        constexpr int padded = AVXVector<indigits>::VEC_LIMBS * AVXVector<indigits>::LIMBS_PER_VEC;
+        std::array<uint64_t, padded> digits{};
+        std::array<uint64_t, indigits> raw_digits;
+        word_reinterpret52<indigits>(integer, raw_digits);
+        for (int i = 0; i < indigits; i++) digits[i] = raw_digits[i];
+
+        // Vulnerable to buffer overread on input.load():
+        // std::array<uint64_t, indigits> digits;
+        // word_reinterpret52<indigits>(integer, digits);
+
+        // Load always read multiples of 8
         AVXVector<indigits> input;
         input.load(digits.data());
         return conversion_matrix.rns_reduce(input, reducer);

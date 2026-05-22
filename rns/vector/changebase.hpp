@@ -62,12 +62,20 @@ class RNSMatrix {
             rns_values_tf, correction_vec, sqe_tf, false  // Debug output disabled
         );
 
-        // Load into members
+        // AVXVector::load reads VEC_LIMBS * LIMBS_PER_VEC uint64_t, which can exceed
+        // out_limbs * OUT_DIGITS when the latter is not a multiple of LIMBS_PER_VEC.
+        // Copy through a padded buffer to avoid an out-of-bounds read.
+        constexpr int padded_out = AVXVector<out_limbs * OUT_DIGITS>::VEC_LIMBS
+                                 * AVXVector<out_limbs * OUT_DIGITS>::LIMBS_PER_VEC;
+        std::array<uint64_t, padded_out> load_buf{};
         for (int i = 0; i < in_limbs * IN_DIGITS; i++) {
-            rns_mat[i].load((uint64_t*)rns_values_tf[i].data());
+            for (int j = 0; j < out_limbs * OUT_DIGITS; j++) load_buf[j] = rns_values_tf[i][j];
+            rns_mat[i].load(load_buf.data());
             shifted_quotient_estimations[i] = static_cast<uint64_t>(sqe_tf[i].to_ulong());
         }
-        correction.load((uint64_t*)correction_vec.data());
+        std::array<uint64_t, padded_out> correction_buf{};
+        for (int j = 0; j < out_limbs * OUT_DIGITS; j++) correction_buf[j] = correction_vec[j];
+        correction.load(correction_buf.data());
     }
 
     // Convenience constructor with default bit params (uses IN_DIGITS and OUT_DIGITS from class template, INBITS=52, OUTBITS=52)
@@ -93,11 +101,20 @@ class RNSMatrix {
             rns_values_tf, correction_vec, sqe_tf, false  // Debug output disabled
         );
 
+        // AVXVector::load reads VEC_LIMBS * LIMBS_PER_VEC uint64_t, which can exceed
+        // out_limbs * OUT_DIGITS when the latter is not a multiple of LIMBS_PER_VEC.
+        // Copy through a padded buffer to avoid an out-of-bounds read.
+        constexpr int padded_out = AVXVector<out_limbs * OUT_DIGITS>::VEC_LIMBS
+                                 * AVXVector<out_limbs * OUT_DIGITS>::LIMBS_PER_VEC;
+        std::array<uint64_t, padded_out> load_buf{};
         for (int i = 0; i < in_limbs * IN_DIGITS; i++) {
-            rns_mat[i].load((uint64_t*)rns_values_tf[i].data());
+            for (int j = 0; j < out_limbs * OUT_DIGITS; j++) load_buf[j] = rns_values_tf[i][j];
+            rns_mat[i].load(load_buf.data());
             shifted_quotient_estimations[i] = static_cast<uint64_t>(sqe_tf[i].to_ulong());
         }
-        correction.load((uint64_t*)correction_vec.data());
+        std::array<uint64_t, padded_out> correction_buf{};
+        for (int j = 0; j < out_limbs * OUT_DIGITS; j++) correction_buf[j] = correction_vec[j];
+        correction.load(correction_buf.data());
     }
 
     // A version that unrolls loop by 2. Seems better for 1024 bits and worse for 2048+ bits.

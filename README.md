@@ -11,7 +11,7 @@ Therefore, the software may contain (but is not limited to) memory leaks, memory
 
 ## Background
 
-This is an artifact repository for "VROOM: Accelerating (Almost All) Number-Theoretic Cryptography Using Vectorization and the Residue Number System", a new modular multiplication algorithm based on a work in submission, and will appear soon in the [Cryptology ePrint Archive](https://eprint.iacr.org/).
+This is an artifact repository for "VROOM: Accelerating (Almost All) Number-Theoretic Cryptography Using Vectorization and the Residue Number System", a new modular multiplication algorithm to appear in USENIX Security 2026. You can find the most up-to-date [full version of the paper here](https://eprint.iacr.org/2026/393.pdf).
 
 In this artifact, we forked [commit `3fb010b`](https://github.com/google/boringssl/commit/3fb010b032008c2da1e9c1d16bccf774d46c5211) from upstream BoringSSL, and modified it to use VROOM for modular multiplication.
 
